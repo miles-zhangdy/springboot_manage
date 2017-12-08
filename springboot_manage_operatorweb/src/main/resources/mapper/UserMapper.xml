@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.user.dao.IUserDao">
+
+	<resultMap id="BaseResultMap" type="com.zdy.biz.user.model.User">
+		<id column="id" property="id" />
+		<result property="userName" column="user_name" />
+		<result property="password" column="password" />
+		<result property="parentId" column="parent_id" />
+		<result property="userCompellation" column="user_compellation" />
+		<result property="userAge" column="user_age" />
+		<result property="userSex" column="user_sex" />
+		<result property="userPhone" column="user_phone" />
+		<result property="userFreeze" column="user_freeze" />
+		<result property="userValidate" column="user_validate" />
+		<result property="createTime" column="create_time" />
+		<result property="createUser" column="create_user" />
+		<result property="modifyTime" column="modify_time" />
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			user.id id ,
+			user.user_name userName ,
+			user.password password ,
+			user.parent_id parentId ,
+			user.user_compellation userCompellation ,
+			user.user_age userAge ,
+			user.user_sex userSex ,
+			user.user_phone userPhone ,
+			user.user_freeze userFreeze ,
+			user.user_validate userValidate ,
+			user.create_time createTime ,
+			user.create_user createUser ,
+			user.modify_time modifyTime 
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="userName != null and userName != ''">
+			and user_name = #{userName}
+		</if>
+		<if test="password != null and password != ''">
+			and password = #{password}
+		</if>
+		<if test="parentId != null ">
+			and parent_id = #{parentId}
+		</if>
+		<if test="userCompellation != null and userCompellation != ''">
+			and user_compellation = #{userCompellation}
+		</if>
+		<if test="userAge != null ">
+			and user_age = #{userAge}
+		</if>
+		<if test="userSex != null ">
+			and user_sex = #{userSex}
+		</if>
+		<if test="userPhone != null and userPhone != ''">
+			and user_phone = #{userPhone}
+		</if>
+		<if test="userFreeze != null ">
+			and user_freeze = #{userFreeze}
+		</if>
+		<if test="userValidate != null ">
+			and user_validate = #{userValidate}
+		</if>
+		<if test="minCreateTime != null">
+    			<![CDATA[
+					and create_time >= #{minCreateTime}
+	    		]]>
+		</if>
+		<if test="maxCreateTime != null">
+	    		<![CDATA[
+					and create_time <= #{maxCreateTime}
+		    	]]>
+		</if>
+		<if test="createTime != null ">
+			and create_time = #{createTime}
+		</if>
+		<if test="createUser != null and createUser != ''">
+			and create_user = #{createUser}
+		</if>
+		<if test="minModifyTime != null">
+    			<![CDATA[
+					and modify_time >= #{minModifyTime}
+	    		]]>
+		</if>
+		<if test="maxModifyTime != null">
+	    		<![CDATA[
+					and modify_time <= #{maxModifyTime}
+		    	]]>
+		</if>
+		<if test="modifyTime != null ">
+			and modify_time = #{modifyTime}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userName != null">
+				user_name ,
+			</if>
+			<if test="password != null">
+				password ,
+			</if>
+			<if test="parentId != null">
+				parent_id ,
+			</if>
+			<if test="userCompellation != null">
+				user_compellation ,
+			</if>
+			<if test="userAge != null">
+				user_age ,
+			</if>
+			<if test="userSex != null">
+				user_sex ,
+			</if>
+			<if test="userPhone != null">
+				user_phone ,
+			</if>
+			<if test="userFreeze != null">
+				user_freeze ,
+			</if>
+			<if test="userValidate != null">
+				user_validate ,
+			</if>
+				create_time ,
+			<if test="createUser != null">
+				create_user ,
+			</if>
+				modify_time 
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="userName != null">
+				#{userName} ,
+			</if>
+			<if test="password != null">
+				#{password} ,
+			</if>
+			<if test="parentId != null">
+				#{parentId} ,
+			</if>
+			<if test="userCompellation != null">
+				#{userCompellation} ,
+			</if>
+			<if test="userAge != null">
+				#{userAge} ,
+			</if>
+			<if test="userSex != null">
+				#{userSex} ,
+			</if>
+			<if test="userPhone != null">
+				#{userPhone} ,
+			</if>
+			<if test="userFreeze != null">
+				#{userFreeze} ,
+			</if>
+			<if test="userValidate != null">
+				#{userValidate} ,
+			</if>
+				now(),
+			<if test="createUser != null">
+				#{createUser} ,
+			</if>
+				now() ,
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		user
+		<where>
+			<include refid="listWhere" />
+			and user_name != 'admin'
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		user
+		<where>
+			<include refid="listWhere" />
+			and user_name != 'admin'
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'userName' == sortName">
+				user_name
+			</if>
+			<if test="'password' == sortName">
+				password
+			</if>
+			<if test="'parentId' == sortName">
+				parent_id
+			</if>
+			<if test="'userCompellation' == sortName">
+				user_compellation
+			</if>
+			<if test="'userAge' == sortName">
+				user_age
+			</if>
+			<if test="'userSex' == sortName">
+				user_sex
+			</if>
+			<if test="'userPhone' == sortName">
+				user_phone
+			</if>
+			<if test="'userFreeze' == sortName">
+				user_freeze
+			</if>
+			<if test="'userValidate' == sortName">
+				user_validate
+			</if>
+			<if test="'createTime' == sortName">
+				create_time
+			</if>
+			<if test="'createUser' == sortName">
+				create_user
+			</if>
+			<if test="'modifyTime' == sortName">
+				modify_time
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<update id="update">
+		update user
+		<set>
+			<if test="userName != null">
+				user_name = #{userName},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId},
+			</if>
+			<if test="userCompellation != null">
+				user_compellation = #{userCompellation},
+			</if>
+			<if test="userAge != null">
+				user_age = #{userAge},
+			</if>
+			<if test="userSex != null">
+				user_sex = #{userSex},
+			</if>
+			<if test="userPhone != null">
+				user_phone = #{userPhone},
+			</if>
+			<if test="userFreeze != null">
+				user_freeze = #{userFreeze},
+			</if>
+			<if test="userValidate != null">
+				user_validate = #{userValidate},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<delete id="deleteById" parameterType="long">
+		delete from user
+		where id = #{id}
+	</delete>
+	<delete id="delete">
+		delete from user
+		where id in
+		<foreach item="item" collection="ids" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		user
+		where id = #{id}
+	</select>
+
+
+
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		user
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+</mapper>
+

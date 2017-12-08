@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.sysuserrole.dao.ISysUserRoleDao">
+
+	<resultMap id="BaseResultMap" type="com.zdy.biz.sysuserrole.model.SysUserRole">
+		<id column="id" property="id" />
+		<result property="sysUserId" column="sys_user_id" />
+		<result property="sysRoleId" column="sys_role_id" />
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			sys_user_role.id id ,
+			sys_user_role.sys_user_id sysUserId ,
+			sys_user_role.sys_role_id sysRoleId 
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null ">
+			and id = #{id}
+		</if>
+		<if test="sysUserId != null and sysUserId != ''">
+			and sys_user_id = #{sysUserId}
+		</if>
+		<if test="sysRoleId != null and sysRoleId != ''">
+			and sys_role_id = #{sysRoleId}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		sys_user_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sysUserId != null">
+				sys_user_id ,
+			</if>
+			<if test="sysRoleId != null">
+				sys_role_id ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sysUserId != null">
+				#{sysUserId} ,
+			</if>
+			<if test="sysRoleId != null">
+				#{sysRoleId} ,
+			</if>
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		sys_user_role
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_user_role
+		<where>
+			<include refid="listWhere" />
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'sysUserId' == sortName">
+				sys_user_id
+			</if>
+			<if test="'sysRoleId' == sortName">
+				sys_role_id
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<update id="update">
+		update sys_user_role
+		<set>
+			<if test="sysUserId != null">
+				sys_user_id = #{sysUserId},
+			</if>
+			<if test="sysRoleId != null">
+				sys_role_id = #{sysRoleId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<delete id="deleteById" parameterType="long">
+		delete from sys_user_role
+		where id = #{id}
+	</delete>
+	<delete id="delete">
+		delete from sys_user_role
+		where id in
+		<foreach item="item" collection="ids" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_user_role
+		where id = #{id}
+	</select>
+
+
+
+<delete id="deleteByUserId" parameterType="long">
+		delete from
+		sys_user_role
+		where sys_user_id = #{sysUserId}
+	</delete>
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_user_role
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<insert id="batchSaving">
+		insert into
+		sys_user_role
+		(sys_user_id ,
+		sys_role_id ) values
+
+		<foreach item="item" collection="sysRoleIds" open="("
+			separator="),(" close=")">
+			#{sysUserId},#{item}
+		</foreach>
+	</insert>
+
+</mapper>
+

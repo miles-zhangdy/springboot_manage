@@ -1,0 +1,64 @@
+
+server:
+  port: 9081
+  session-timeout: 60
+
+spring:
+    redis:
+        host: 127.0.0.1
+        port: 6379
+        timeout: 20000
+        pool:
+            max-active: 8
+            min-idle: 0
+            max-idle: 8
+            max-wait: -1
+
+mybatis:
+     mapperLocations: classpath:mapper/*.xml
+     typeAliasesPackage: com.zdy.*.model   
+     mapperScanPackage: com.zdy.*.dao
+
+mysql:
+    datasource:
+        readSize: 1  #读库个数
+        type: com.alibaba.druid.pool.DruidDataSource
+        mapperLocations: classpath:mapper/*.xml
+        write:
+           url: jdbc:mysql://127.0.0.1:3306/ssm?useUnicode=true&characterEncoding=utf-8
+           username: root
+           password: root
+           driver-class-name: com.mysql.jdbc.Driver
+           minIdle: 5
+           maxActive: 100
+           initialSize: 10
+           maxWait: 60000
+           timeBetweenEvictionRunsMillis: 60000
+           minEvictableIdleTimeMillis: 300000
+           validationQuery: select 'x'
+           testWhileIdle: true
+           testOnBorrow: false
+           testOnReturn: false
+           poolPreparedStatements: true
+           maxPoolPreparedStatementPerConnectionSize: 50
+           removeAbandoned: true
+           filters: stat
+        read01:
+           url: jdbc:mysql://127.0.0.1:3306/ssm?useUnicode=true&characterEncoding=utf-8
+           username: root
+           password: root
+           driver-class-name: com.mysql.jdbc.Driver
+           minIdle: 5
+           maxActive: 100
+           initialSize: 10
+           maxWait: 60000
+           timeBetweenEvictionRunsMillis: 60000
+           minEvictableIdleTimeMillis: 300000
+           validationQuery: select 'x'
+           testWhileIdle: true
+           testOnBorrow: false
+           testOnReturn: false
+           poolPreparedStatements: true
+           maxPoolPreparedStatementPerConnectionSize: 50
+           removeAbandoned: true
+           filters: stat

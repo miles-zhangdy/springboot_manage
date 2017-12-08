@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.syspermission.dao.ISysPermissionDao">
+
+	<resultMap id="BaseResultMap" type="com.zdy.biz.syspermission.model.SysPermission">
+		<id column="id" property="id" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="url" column="url" />
+		<result property="percode" column="percode" />
+		<result property="parentid" column="parentid" />
+		<result property="sortstring" column="sortstring" />
+		<result property="available" column="available" />
+		<result property="checked" column="checked" />
+		<result property="className" column="class_name"/>
+		<result property="isShow" column="is_show"/>
+		<collection property="childList" column="id"
+			ofType="com.zdy.biz.syspermission.model.SysPermission" select="findListByParentId">
+		</collection>
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			sys_permission.id id ,
+			sys_permission.name name ,
+			sys_permission.type type ,
+			sys_permission.url url ,
+			sys_permission.percode percode ,
+			sys_permission.parentid parentid ,
+			sys_permission.sortstring sortstring ,
+			sys_permission.available available ,
+			sys_permission.class_name class_name,
+			sys_permission.is_show is_show
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null ">
+			and id = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+		<if test="url != null and url != ''">
+			and url = #{url}
+		</if>
+		<if test="percode != null and percode != ''">
+			and percode = #{percode}
+		</if>
+		<if test="parentid != null ">
+			and parentid = #{parentid}
+		</if>
+		<if test="sortstring != null and sortstring != ''">
+			and sortstring = #{sortstring}
+		</if>
+		<if test="available != null and available != ''">
+			and available = #{available}
+		</if>
+		<if test="className != null and className != ''">
+			and class_name = #{className}
+		</if>
+		<if test="isShow != null and isShow != ''">
+			and is_show = #{isShow}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		sys_permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name ,
+			</if>
+			<if test="type != null">
+				type ,
+			</if>
+			<if test="url != null">
+				url ,
+			</if>
+			<if test="percode != null">
+				percode ,
+			</if>
+			<if test="parentid != null">
+				parentid ,
+			</if>
+			<if test="sortstring != null">
+				sortstring ,
+			</if>
+			<if test="available != null">
+				available ,
+			</if>
+			<if test="className != null">
+				class_name ,
+			</if>
+			<if test="isShow != null">
+				is_show ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="url != null">
+				#{url} ,
+			</if>
+			<if test="percode != null">
+				#{percode} ,
+			</if>
+			<if test="parentid != null">
+				#{parentid} ,
+			</if>
+			<if test="sortstring != null">
+				#{sortstring} ,
+			</if>
+			<if test="available != null">
+				#{available} ,
+			</if>
+			<if test="className != null">
+				#{className} ,
+			</if>
+			<if test="isShow != null">
+				#{isShow} ,
+			</if>
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		sys_permission
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_permission
+		<where>
+			<include refid="listWhere" />
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'name' == sortName">
+				name
+			</if>
+			<if test="'type' == sortName">
+				type
+			</if>
+			<if test="'url' == sortName">
+				url
+			</if>
+			<if test="'percode' == sortName">
+				percode
+			</if>
+			<if test="'parentid' == sortName">
+				parentid
+			</if>
+			<if test="'sortstring' == sortName">
+				sortstring
+			</if>
+			<if test="'available' == sortName">
+				available
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<select id="findListByParentId" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_permission
+		<where>
+			parentid = #{id} and type!='button' and is_show='0'
+		</where>
+		order by sortstring
+	</select>
+
+	<update id="update">
+		update sys_permission
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="url != null">
+				url = #{url},
+			</if>
+			<if test="percode != null">
+				percode = #{percode},
+			</if>
+			<if test="parentid != null">
+				parentid = #{parentid},
+			</if>
+			<if test="sortstring != null">
+				sortstring = #{sortstring},
+			</if>
+			<if test="available != null">
+				available = #{available},
+			</if>
+			<if test="className != null">
+				class_name = #{className},
+			</if>
+			<if test="isShow != null">
+				is_show = #{isShow},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<delete id="deleteById" parameterType="long">
+		delete from sys_permission
+		where id = #{id}
+	</delete>
+	<delete id="delete">
+		delete from sys_permission
+		where id in
+		<foreach item="item" collection="ids" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+
+	</delete>
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_permission
+		where id = #{id}
+	</select>
+
+
+
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_permission
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findChildList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from sys_permission
+		where
+		FIND_IN_SET(id,
+		querypermissioninfo(#{parentid}))
+
+	</select>
+
+	<select id="findParendList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from sys_permission
+		where
+		FIND_IN_SET(id,
+		querypermissionparentinfo(#{parentid}))
+	</select>
+
+	<select id="findRolePermissionByRoleIds" resultMap="BaseResultMap">
+
+		select distinct a.*, case when b.sys_permission_id is not null then
+		'true'
+		else 'false' end as checked from sys_permission a
+		left join
+		sys_role_permission b on a.id=b.sys_permission_id and
+		b.sys_role_id in
+		<if test="roleId != null ">
+			(#{roleId})
+		</if>
+		<if test="roleIds != null ">
+			<foreach item="item" collection="roleIds" open="(" separator=","
+				close=")">
+				#{item}
+			</foreach>
+		</if>
+		<where>
+			<include refid="listWhere" />
+		</where>
+		order by sortstring
+
+	</select>
+
+
+	<select id="findUserRolePermissionByRoleIds" resultMap="BaseResultMap">
+
+		select distinct a.* from sys_permission a
+		inner join
+		sys_role_permission b on a.id=b.sys_permission_id and
+		b.sys_role_id in
+		<if test="roleId != null ">
+			(#{roleId})
+		</if>
+		<if test="roleIds != null ">
+			<foreach item="item" collection="roleIds" open="(" separator=","
+				close=")">
+				#{item}
+			</foreach>
+		</if>
+		<where>
+			<include refid="listWhere" />
+		</where>
+		order by sortstring
+
+	</select>
+</mapper>
+

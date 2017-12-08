@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.sysrole.dao.ISysRoleDao">
+
+	<resultMap id="BaseResultMap" type="com.zdy.biz.sysrole.model.SysRole">
+		<id column="id" property="id" />
+		<result property="name" column="name" />
+		<result property="available" column="available" />
+		<result property="checked" column="checked" />
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			sys_role.id id ,
+			sys_role.name name ,
+			sys_role.available available 
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null ">
+			and id = #{id}
+		</if>
+		<if test="name != null and name != ''">
+			and name = #{name}
+		</if>
+		<if test="available != null and available != ''">
+			and available = #{available}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		sys_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name ,
+			</if>
+			<if test="available != null">
+				available ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name} ,
+			</if>
+			<if test="available != null">
+				#{available} ,
+			</if>
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		sys_role
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_role
+		<where>
+			<include refid="listWhere" />
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'name' == sortName">
+				name
+			</if>
+			<if test="'available' == sortName">
+				available
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<update id="update">
+		update sys_role
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="available != null">
+				available = #{available},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<delete id="deleteById" parameterType="long">
+		delete from sys_role
+		where
+		id = #{id}
+	</delete>
+	<delete id="delete">
+		delete from sys_role
+		where id in
+		<foreach item="item" collection="ids" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_role
+		where id = #{id}
+	</select>
+
+
+
+
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_role
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findUserRoleList" resultMap="BaseResultMap">
+		SELECT
+		distinct a.*, CASE WHEN b.id IS NULL THEN ' ' ELSE 'checked' END AS
+		checked
+		FROM
+		sys_role a
+		LEFT JOIN sys_user_role b ON a.id=b.sys_role_id AND b.sys_user_id=#{userId}
+		LEFT JOIN USER c ON b.sys_user_id=c.id AND c.id=#{userId}
+
+		WHERE 1=1
+		<if test="available != null">
+			and a.available = #{available},
+		</if>
+	</select>
+
+</mapper>
+
+

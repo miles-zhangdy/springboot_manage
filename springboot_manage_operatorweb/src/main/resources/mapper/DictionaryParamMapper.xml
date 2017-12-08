@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.dictionary.dao.IDictionaryParamDao">
+
+	<resultMap id="BaseResultMap" type="com.zdy.biz.dictionary.model.DictionaryParam">
+		<id column="id" property="id" />
+		<result property="dictionaryId" column="dictionary_id" />
+		<result property="paramKey" column="param_key" />
+		<result property="paramDesc" column="param_desc" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="create_time" />
+		<result property="createUser" column="create_user" />
+		<result property="operTime" column="oper_time" />
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			dictionary_param.id id ,
+			dictionary_param.dictionary_id dictionaryId ,
+			dictionary_param.param_key paramKey ,
+			dictionary_param.param_desc paramDesc ,
+			dictionary_param.remark remark ,
+			dictionary_param.create_time createTime ,
+			dictionary_param.create_user createUser ,
+			dictionary_param.oper_time operTime 
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null ">
+			and id = #{id}
+		</if>
+		<if test="dictionaryId != null ">
+			and dictionary_id = #{dictionaryId}
+		</if>
+		<if test="paramKey != null and paramKey != ''">
+			and param_key = #{paramKey}
+		</if>
+		<if test="paramDesc != null and paramDesc != ''">
+			and param_desc = #{paramDesc}
+		</if>
+		<if test="remark != null and remark != ''">
+			and remark = #{remark}
+		</if>
+		<if test="createTime != null ">
+			and create_time = #{createTime}
+		</if>
+		<if test="createUser != null ">
+			and create_user = #{createUser}
+		</if>
+		<if test="operTime != null ">
+			and oper_time = #{operTime}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		dictionary_param
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dictionaryId != null">
+				dictionary_id ,
+			</if>
+			<if test="paramKey != null">
+				param_key ,
+			</if>
+			<if test="paramDesc != null">
+				param_desc ,
+			</if>
+			<if test="remark != null">
+				remark ,
+			</if>
+			create_time ,
+			<if test="createUser != null">
+				create_user ,
+			</if>
+			oper_time ,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dictionaryId != null">
+				#{dictionaryId} ,
+			</if>
+			<if test="paramKey != null">
+				#{paramKey} ,
+			</if>
+			<if test="paramDesc != null">
+				#{paramDesc} ,
+			</if>
+			<if test="remark != null">
+				#{remark} ,
+			</if>
+			now(),
+			<if test="createUser != null">
+				#{createUser} ,
+			</if>
+			now() ,
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		dictionary_param
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		dictionary_param
+		<where>
+			<include refid="listWhere" />
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'dictionaryId' == sortName">
+				dictionary_id
+			</if>
+			<if test="'paramKey' == sortName">
+				param_key
+			</if>
+			<if test="'paramDesc' == sortName">
+				param_desc
+			</if>
+			<if test="'remark' == sortName">
+				remark
+			</if>
+			<if test="'createTime' == sortName">
+				create_time
+			</if>
+			<if test="'createUser' == sortName">
+				create_user
+			</if>
+			<if test="'operTime' == sortName">
+				oper_time
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<update id="update">
+		update dictionary_param
+		<set>
+			<if test="dictionaryId != null">
+				dictionary_id = #{dictionaryId},
+			</if>
+			<if test="paramKey != null">
+				param_key = #{paramKey},
+			</if>
+			<if test="paramDesc != null">
+				param_desc = #{paramDesc},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			oper_time = now(),
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		dictionary_param
+		where id = #{id}
+	</delete>
+	<delete id="delete">
+		delete from dictionary_param
+		where id in
+		<foreach item="item" collection="ids" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		dictionary_param
+		where id = #{id}
+	</select>
+
+
+
+
+
+
+
+
+
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		dictionary_param
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+</mapper>
+

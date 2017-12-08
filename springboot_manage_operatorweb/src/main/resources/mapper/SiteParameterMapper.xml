@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.siteparameter.dao.ISiteParameterDao">
+
+	<resultMap id="BaseResultMap" type="com.zdy.biz.siteparameter.model.SiteParameter">
+		<id column="id" property="id" />
+		<result property="paramName" column="PARAM_NAME" />
+		<result property="paramValue" column="PARAM_VALUE" />
+		<result property="paramComment" column="PARAM_COMMENT" />
+		<result property="remark" column="REMARK" />
+		<result property="createTime" column="create_time" />
+		<result property="operTime" column="oper_time" />
+		<result property="createUser" column="create_user" />
+		<result property="rsrvStr1" column="RSRV_STR1" />
+		<result property="rsrvStr2" column="RSRV_STR2" />
+		<result property="rsrvStr3" column="RSRV_STR3" />
+		<result property="rsrvStr4" column="RSRV_STR4" />
+		<result property="rsrvStr5" column="RSRV_STR5" />
+		<result property="rsrvStr6" column="RSRV_STR6" />
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			site_parameter.id id ,
+			site_parameter.PARAM_NAME paramName ,
+			site_parameter.PARAM_VALUE paramValue ,
+			site_parameter.PARAM_COMMENT paramComment ,
+			site_parameter.REMARK remark ,
+			site_parameter.create_time createTime ,
+			site_parameter.oper_time operTime ,
+			site_parameter.create_user createUser ,
+			site_parameter.RSRV_STR1 rsrvStr1 ,
+			site_parameter.RSRV_STR2 rsrvStr2 ,
+			site_parameter.RSRV_STR3 rsrvStr3 ,
+			site_parameter.RSRV_STR4 rsrvStr4 ,
+			site_parameter.RSRV_STR5 rsrvStr5 ,
+			site_parameter.RSRV_STR6 rsrvStr6 
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null ">
+			and id = #{id}
+		</if>
+		<if test="paramName != null and paramName != ''">
+			and PARAM_NAME like concat('%', #{paramName}, '%') 
+		</if>
+		<if test="paramValue != null and paramValue != ''">
+			and PARAM_VALUE = #{paramValue}
+		</if>
+		<if test="paramComment != null and paramComment != ''">
+			and PARAM_COMMENT = #{paramComment}
+		</if>
+		<if test="remark != null and remark != ''">
+			and REMARK = #{remark}
+		</if>
+		<if test="operTime != null ">
+			and oper_time = #{operTime}
+		</if>
+		<if test="createUser != null ">
+			and create_user = #{createUser}
+		</if>
+		<if test="rsrvStr1 != null and rsrvStr1 != ''">
+			and RSRV_STR1 = #{rsrvStr1}
+		</if>
+		<if test="rsrvStr2 != null and rsrvStr2 != ''">
+			and RSRV_STR2 = #{rsrvStr2}
+		</if>
+		<if test="rsrvStr3 != null and rsrvStr3 != ''">
+			and RSRV_STR3 = #{rsrvStr3}
+		</if>
+		<if test="rsrvStr4 != null and rsrvStr4 != ''">
+			and RSRV_STR4 = #{rsrvStr4}
+		</if>
+		<if test="rsrvStr5 != null and rsrvStr5 != ''">
+			and RSRV_STR5 = #{rsrvStr5}
+		</if>
+		<if test="rsrvStr6 != null and rsrvStr6 != ''">
+			and RSRV_STR6 = #{rsrvStr6}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		site_parameter
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="paramName != null">
+				PARAM_NAME ,
+			</if>
+			<if test="paramValue != null">
+				PARAM_VALUE ,
+			</if>
+			<if test="paramComment != null">
+				PARAM_COMMENT ,
+			</if>
+			<if test="remark != null">
+				REMARK ,
+			</if>
+				create_time ,
+				oper_time ,
+			<if test="createUser != null">
+				create_user ,
+			</if>
+			<if test="rsrvStr1 != null">
+				RSRV_STR1 ,
+			</if>
+			<if test="rsrvStr2 != null">
+				RSRV_STR2 ,
+			</if>
+			<if test="rsrvStr3 != null">
+				RSRV_STR3 ,
+			</if>
+			<if test="rsrvStr4 != null">
+				RSRV_STR4 ,
+			</if>
+			<if test="rsrvStr5 != null">
+				RSRV_STR5 ,
+			</if>
+			<if test="rsrvStr6 != null">
+				RSRV_STR6 ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="paramName != null">
+				#{paramName} ,
+			</if>
+			<if test="paramValue != null">
+				#{paramValue} ,
+			</if>
+			<if test="paramComment != null">
+				#{paramComment} ,
+			</if>
+			<if test="remark != null">
+				#{remark} ,
+			</if>
+				now(),
+				now() ,
+			<if test="createUser != null">
+				#{createUser} ,
+			</if>
+			<if test="rsrvStr1 != null">
+				#{rsrvStr1} ,
+			</if>
+			<if test="rsrvStr2 != null">
+				#{rsrvStr2} ,
+			</if>
+			<if test="rsrvStr3 != null">
+				#{rsrvStr3} ,
+			</if>
+			<if test="rsrvStr4 != null">
+				#{rsrvStr4} ,
+			</if>
+			<if test="rsrvStr5 != null">
+				#{rsrvStr5} ,
+			</if>
+			<if test="rsrvStr6 != null">
+				#{rsrvStr6} ,
+			</if>
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		site_parameter
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		site_parameter
+		<where>
+			<include refid="listWhere" />
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'paramName' == sortName">
+				PARAM_NAME
+			</if>
+			<if test="'paramValue' == sortName">
+				PARAM_VALUE
+			</if>
+			<if test="'paramComment' == sortName">
+				PARAM_COMMENT
+			</if>
+			<if test="'remark' == sortName">
+				REMARK
+			</if>
+			<if test="'createTime' == sortName">
+				create_time
+			</if>
+			<if test="'operTime' == sortName">
+				oper_time
+			</if>
+			<if test="'createUser' == sortName">
+				create_user
+			</if>
+			<if test="'rsrvStr1' == sortName">
+				RSRV_STR1
+			</if>
+			<if test="'rsrvStr2' == sortName">
+				RSRV_STR2
+			</if>
+			<if test="'rsrvStr3' == sortName">
+				RSRV_STR3
+			</if>
+			<if test="'rsrvStr4' == sortName">
+				RSRV_STR4
+			</if>
+			<if test="'rsrvStr5' == sortName">
+				RSRV_STR5
+			</if>
+			<if test="'rsrvStr6' == sortName">
+				RSRV_STR6
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<update id="update">
+		update site_parameter
+		<set>
+			<if test="paramName != null">
+				PARAM_NAME = #{paramName},
+			</if>
+			<if test="paramValue != null">
+				PARAM_VALUE = #{paramValue},
+			</if>
+			<if test="paramComment != null">
+				PARAM_COMMENT = #{paramComment},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime},
+			</if>
+			<if test="operTime != null">
+				oper_time = #{operTime},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser},
+			</if>
+			<if test="rsrvStr1 != null">
+				RSRV_STR1 = #{rsrvStr1},
+			</if>
+			<if test="rsrvStr2 != null">
+				RSRV_STR2 = #{rsrvStr2},
+			</if>
+			<if test="rsrvStr3 != null">
+				RSRV_STR3 = #{rsrvStr3},
+			</if>
+			<if test="rsrvStr4 != null">
+				RSRV_STR4 = #{rsrvStr4},
+			</if>
+			<if test="rsrvStr5 != null">
+				RSRV_STR5 = #{rsrvStr5},
+			</if>
+			<if test="rsrvStr6 != null">
+				RSRV_STR6 = #{rsrvStr6},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<delete id="deleteById" parameterType="long">
+		delete from site_parameter
+		where id = #{id}
+	</delete>
+	<delete id="delete">
+		delete from site_parameter
+		where
+		id in
+		<foreach item="item" collection="ids" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		site_parameter
+		where id = #{id}
+	</select>
+
+
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		site_parameter
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+</mapper>
+

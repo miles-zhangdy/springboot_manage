@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.dictionary.dao.IDictionaryDao">
+
+	<resultMap id="BaseResultMap" type="com.zdy.biz.dictionary.model.Dictionary">
+		<id column="id" property="id" />
+		<result property="dictionaryKey" column="dictionary_key" />
+		<result property="dictionartDesc" column="dictionart_desc" />
+		<result property="createTime" column="create_time" />
+		<result property="createUser" column="create_user" />
+		<result property="operTime" column="oper_time" />
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			dictionary.id id ,
+			dictionary.dictionary_key dictionaryKey ,
+			dictionary.dictionart_desc dictionartDesc ,
+			dictionary.create_time createTime ,
+			dictionary.create_user createUser ,
+			dictionary.oper_time operTime 
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null ">
+			and id = #{id}
+		</if>
+		<if test="dictionaryKey != null and dictionaryKey != ''">
+			and dictionary_key = #{dictionaryKey}
+		</if>
+		<if test="dictionartDesc != null and dictionartDesc != ''">
+			and dictionart_desc = #{dictionartDesc}
+		</if>
+		<if test="createTime != null ">
+			and create_time = #{createTime}
+		</if>
+		<if test="createUser != null ">
+			and create_user = #{createUser}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		dictionary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dictionaryKey != null">
+				dictionary_key ,
+			</if>
+			<if test="dictionartDesc != null">
+				dictionart_desc ,
+			</if>
+				create_time ,
+			<if test="createUser != null">
+				create_user ,
+			</if>
+				oper_time ,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dictionaryKey != null">
+				#{dictionaryKey} ,
+			</if>
+			<if test="dictionartDesc != null">
+				#{dictionartDesc} ,
+			</if>
+				now() ,
+			<if test="createUser != null">
+				#{createUser} ,
+			</if>
+				now() ,
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		dictionary
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		dictionary
+		<where>
+			<include refid="listWhere" />
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'dictionaryKey' == sortName">
+				dictionary_key
+			</if>
+			<if test="'dictionartDesc' == sortName">
+				dictionart_desc
+			</if>
+			<if test="'createTime' == sortName">
+				create_time
+			</if>
+			<if test="'createUser' == sortName">
+				create_user
+			</if>
+			<if test="'operTime' == sortName">
+				oper_time
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<update id="update">
+		update dictionary
+		<set>
+			<if test="dictionaryKey != null">
+				dictionary_key = #{dictionaryKey},
+			</if>
+			<if test="dictionartDesc != null">
+				dictionart_desc = #{dictionartDesc},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser},
+			</if>
+				oper_time = now(),
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<delete id="deleteById" parameterType="long">
+		delete from dictionary
+		where id = #{id}
+	</delete>
+	<delete id="delete">
+		delete from dictionary
+		where id in
+	</delete>
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		dictionary
+		where id = #{id}
+	</select>
+
+
+
+
+
+
+
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		dictionary
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+</mapper>
+

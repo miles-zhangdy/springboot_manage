@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+    <!DOCTYPE mapper   
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zdy.biz.sysrolepermission.dao.ISysRolePermissionDao">
+
+	<resultMap id="BaseResultMap"
+		type="com.zdy.biz.sysrolepermission.model.SysRolePermission">
+		<id column="id" property="id" />
+		<result property="sysRoleId" column="sys_role_id" />
+		<result property="sysPermissionId" column="sys_permission_id" />
+	</resultMap>
+
+	<sql id="BaseColumnList">
+	    <![CDATA[
+			sys_role_permission.id id ,
+			sys_role_permission.sys_role_id sysRoleId ,
+			sys_role_permission.sys_permission_id sysPermissionId 
+	    ]]>
+	</sql>
+
+	<sql id="listWhere">
+		<if test="id != null ">
+			and id = #{id}
+		</if>
+		<if test="sysRoleId != null and sysRoleId != ''">
+			and sys_role_id = #{sysRoleId}
+		</if>
+		<if test="sysPermissionId != null and sysPermissionId != ''">
+			and sys_permission_id = #{sysPermissionId}
+		</if>
+	</sql>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into
+		sys_role_permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sysRoleId != null">
+				sys_role_id ,
+			</if>
+			<if test="sysPermissionId != null">
+				sys_permission_id ,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sysRoleId != null">
+				#{sysRoleId} ,
+			</if>
+			<if test="sysPermissionId != null">
+				#{sysPermissionId} ,
+			</if>
+		</trim>
+	</insert>
+
+	<select id="count" resultType="int">
+		select
+		count(*)
+		from
+		sys_role_permission
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<select id="findList" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_role_permission
+		<where>
+			<include refid="listWhere" />
+		</where>
+		<if test="sortName != null ">
+			order by
+			<if test="'id' == sortName">
+				id
+			</if>
+			<if test="'sysRoleId' == sortName">
+				sys_role_id
+			</if>
+			<if test="'sysPermissionId' == sortName">
+				sys_permission_id
+			</if>
+			<if test="order != null ">
+				${ order}
+			</if>
+		</if>
+		<if test="beginIndex != null and pageSize != null">
+			limit #{beginIndex} , #{pageSize}
+		</if>
+	</select>
+
+	<update id="update">
+		update sys_role_permission
+		<set>
+			<if test="sysRoleId != null">
+				sys_role_id = #{sysRoleId},
+			</if>
+			<if test="sysPermissionId != null">
+				sys_permission_id = #{sysPermissionId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+<delete id="deleteByRoleId" parameterType="long">
+		delete from
+		sys_role_permission
+		where sys_role_id = #{sysRoleId}
+	</delete>
+
+	<delete id="deleteById" parameterType="long">
+		delete from
+		sys_role_permission
+		where id = #{id}
+	</delete>
+	
+	<delete id="delete">
+		delete from sys_role_permission
+		where 
+		<if test="ids != null">
+			id in
+			<foreach item="item" collection="ids" open="(" separator=","
+				close=")">
+				#{item}
+			</foreach>
+		</if>
+		<if test="sysPermissionIds != null">
+			sys_permission_id in
+			<foreach item="item" collection="sysPermissionIds" open="(" separator=","
+				close=")">
+				#{item}
+			</foreach>
+		</if>
+	</delete>
+	
+
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="Long">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_role_permission
+		where id = #{id}
+	</select>
+
+
+
+
+
+	<select id="fetch" resultMap="BaseResultMap">
+		select
+		<include refid="BaseColumnList" />
+		from
+		sys_role_permission
+		<where>
+			<include refid="listWhere" />
+		</where>
+	</select>
+
+	<insert id="batchSaving">
+		insert into
+		sys_role_permission
+		(sys_role_id ,
+		sys_permission_id ) values
+
+		<foreach item="item" collection="sysPermissionIds" open="("
+			separator="),(" close=")">
+			#{sysRoleId},#{item}
+		</foreach>
+	</insert>
+
+
+</mapper>
+
