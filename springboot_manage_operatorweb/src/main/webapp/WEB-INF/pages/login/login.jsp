@@ -14,7 +14,7 @@
 		<div class=" card-box">
 			<div class="panel-heading">
 				<h3 class="text-center">
-					Sign In to <strong class="text-custom">UBold</strong>
+					 <strong class="text-custom">会员登录</strong>
 				</h3>
 			</div>
 
@@ -40,7 +40,7 @@
 						<div class="col-xs-12">
 							<div class="checkbox checkbox-primary">
 								<input id="checkbox-signup" type="checkbox"> <label
-									for="checkbox-signup"> Remember me </label>
+									for="checkbox-signup"> 记住密码 </label>
 							</div>
 
 						</div>
@@ -50,14 +50,14 @@
 						<div class="col-xs-12">
 							<button
 								class="btn btn-pink btn-block text-uppercase waves-effect waves-light"
-								type="button" id="login-btn">Log In</button>
+								type="button" id="login-btn">登录</button>
 						</div>
 					</div>
 
 					<div class="form-group m-t-30 m-b-0">
 						<div class="col-sm-12">
-							<a href="#" class="text-dark"><i class="fa fa-lock m-r-5"></i>
-								Forgot your password?</a>
+							<!-- <a href="#" class="text-dark"><i class="fa fa-lock m-r-5"></i>
+								Forgot your password?</a> -->
 						</div>
 					</div>
 				</form>
@@ -67,8 +67,8 @@
 		<div class="row">
 			<div class="col-sm-12 text-center">
 				<p>
-					Don't have an account? <a href="user/toregisterpage" class="text-primary m-l-5"><b>Sign
-							Up</b></a>
+					没有账户? <a href="user/toregisterpage" class="text-primary m-l-5">
+					<b>注册</b></a>
 				</p>
 
 			</div>

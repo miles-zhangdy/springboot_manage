@@ -36,7 +36,6 @@ $(function() {
 	$("#save-user-role").click(function(){
 		saveUserRole();
 	});
-	 //网站地址
     $.validator.addMethod("isExistsUser", function(value, element) {
     	var isExists = isExistsUser(value);
     	if($("#edit-frm").find("#editFlag").val() != "add" && oldName == value){
@@ -83,7 +82,8 @@ function queryList(curPage, pageSize, initFlag) {
 		"page" : curPage,
 		"pageSize" : pageSize,
 		"userName":$.trim($("#search-frm").find("#userName").val()),
-		"userSex":$("#search-frm").find("#userSex").val()
+		"userSex":$("#search-frm").find("#userSex").val(),
+		"userValidate":1
 	},
 	function(data) {
 		if (data.success == true) {

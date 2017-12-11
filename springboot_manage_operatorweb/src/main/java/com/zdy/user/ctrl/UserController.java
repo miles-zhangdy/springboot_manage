@@ -61,10 +61,18 @@ public class UserController extends BaseController {
 
 		return mv;
 	}
+	
+	@RequestMapping(value = "/touservalidate")
+	public ModelAndView toUserValidate() {
+		ModelAndView mv = new ModelAndView("user/userValidate");
+
+		return mv;
+	}
+
 
 	@RequestMapping(value = "/toregisterpage")
 	public String toRegisterPage() {
-		return "user/registger";
+		return "login/register";
 	}
 
 	@RequestMapping(value = "/finduserlist")
@@ -105,6 +113,27 @@ public class UserController extends BaseController {
 			res = new Result(true, serviceResult.getMsg());
 		} else {
 			res = new Result(false, "添加失败");
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = "/registeruser")
+	@ResponseBody
+	public Result registerUser(UserVO vo) throws MyException {
+		Result res = null;
+		try {
+			vo.setCreateUser(vo.getUserName());
+			vo.setParentId(0L);
+			vo.setPassword(vo.getUserName());
+			ServiceResult<UserResp> serviceResult = userService.save(new CreateUserReq(vo.toUser()));
+			
+			if (serviceResult != null && serviceResult.isSuccess()) {
+				res = new Result(true, serviceResult.getMsg());
+			} else {
+				res = new Result(false, "注册失败");
+			}
+		} catch (Exception e) {
+			throw new MyException("注册失败", e);
 		}
 		return res;
 	}
@@ -238,6 +267,16 @@ public class UserController extends BaseController {
 				if (freeze == 0) {
 					return new Result(false, "账户已被冻结");
 				}
+				if(serviceResult.getBusinessObject().getUserValidate() == 2){
+					Long[] a = new Long[1];
+					a[0] = serviceResult.getBusinessObject().getId();
+					req.setIds(a);
+					userService.delete(req);
+					return new Result(false, "账户审核不通过");
+				}
+				if(serviceResult.getBusinessObject().getUserValidate() == 0){
+					return new Result(false, "账户未审核");
+				}
 				res = new Result(true, "登录成功");
 				setSession(serviceResult.getBusinessObject());
 				setCookie(serviceResult.getBusinessObject(), remember, response);
@@ -341,5 +380,6 @@ public class UserController extends BaseController {
 			response.addCookie(rememberCookie);
 		}
 	}
-
+	
+	
 }

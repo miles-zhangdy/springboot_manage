@@ -67,8 +67,11 @@
 		<if test="userFreeze != null ">
 			and user_freeze = #{userFreeze}
 		</if>
-		<if test="userValidate != null ">
+		<if test="userValidate != null and userValidate==1">
 			and user_validate = #{userValidate}
+		</if>
+		<if test="userValidate != null and userValidate==0">
+			and user_validate in(0,2)
 		</if>
 		<if test="minCreateTime != null">
     			<![CDATA[

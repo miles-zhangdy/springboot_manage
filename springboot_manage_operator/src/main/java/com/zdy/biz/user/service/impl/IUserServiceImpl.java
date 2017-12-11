@@ -145,17 +145,17 @@ public class IUserServiceImpl implements IUserService {
 		if (user == null || StringUtils.isEmpty(user.getId())) {
 			return result.success(null);
 		}
-		String key = "user_" + user.getId();
-		ValueOperations<String, UserResp> operations = redisTemplate.opsForValue();
-		// 缓存存在
-		boolean hasKey = redisTemplate.hasKey(key);
-		UserResp userResp = null;
-		if (hasKey) {
-			userResp = operations.get(key);
-		}else{
-			userResp = new UserResp(user);
-			operations.set(key, userResp);
-		}
+//		String key = "user_" + user.getId();
+//		ValueOperations<String, UserResp> operations = redisTemplate.opsForValue();
+//		// 缓存存在
+//		boolean hasKey = redisTemplate.hasKey(key);
+//		UserResp userResp = null;
+//		if (hasKey) {
+//			userResp = operations.get(key);
+//		}else{
+		UserResp userResp = new UserResp(user);
+//			operations.set(key, userResp);
+//		}
 		return result.success(userResp);
 	}
 	@ReadDataSource
