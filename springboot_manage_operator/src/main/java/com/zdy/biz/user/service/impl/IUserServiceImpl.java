@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
@@ -66,6 +67,8 @@ public class IUserServiceImpl implements IUserService {
 		userList.setTotalRows(totalRows);
 		return result.success(userList);
 	}
+	
+	@Transactional
 	@WriteDataSource
 	@Override
 	public ServiceResult<UserResp> save(CreateUserReq req) {
@@ -81,6 +84,7 @@ public class IUserServiceImpl implements IUserService {
 		}
 		return result.success();
 	}
+	@Transactional
 	@WriteDataSource
 	@Override
 	public ServiceResult<UserResp> delete(UserReq req) {
@@ -95,6 +99,8 @@ public class IUserServiceImpl implements IUserService {
 		}
 		return result.success();
 	}
+	
+	@Transactional
 	@WriteDataSource
 	@Override
 	public ServiceResult<UserResp> update(ModifyUserReq req) {
