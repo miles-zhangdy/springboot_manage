@@ -13,7 +13,7 @@ public class ModifySysRoleReq  {
 	private Long id;
 	private String name;
 	private String available;
-	
+	private Long custId;
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -45,6 +45,7 @@ public class ModifySysRoleReq  {
 			this.setId(sysRole.getId());
 			this.setName(sysRole.getName());
 			this.setAvailable(sysRole.getAvailable());
+			this.setCustId(sysRole.getCustId());
 		}
 	}
 	public SysRole toSysRole(){
@@ -52,7 +53,16 @@ public class ModifySysRoleReq  {
 		sysRole.setId(this.id);
 		sysRole.setName(this.name);
 		sysRole.setAvailable(this.available);
+		sysRole.setCustId(this.custId);
 		return sysRole;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 	
 }

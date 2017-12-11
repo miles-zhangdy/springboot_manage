@@ -75,6 +75,7 @@ public class SessionUser implements java.io.Serializable {
 	
 	private Long[] roleIds;
 	
+	private Long custId;
 	
 	public SessionUser() {
 	}
@@ -235,6 +236,14 @@ public class SessionUser implements java.io.Serializable {
 
 	public void setPermissionList(List<SysPermissionResp> permissionList) {
 		this.permissionList = permissionList;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 
 }

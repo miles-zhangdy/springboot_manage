@@ -9,13 +9,15 @@
 		<id column="id" property="id" />
 		<result property="sysUserId" column="sys_user_id" />
 		<result property="sysRoleId" column="sys_role_id" />
+		<result property="custId" column="cust_id" />
 	</resultMap>
 
 	<sql id="BaseColumnList">
 	    <![CDATA[
 			sys_user_role.id id ,
 			sys_user_role.sys_user_id sysUserId ,
-			sys_user_role.sys_role_id sysRoleId 
+			sys_user_role.sys_role_id sysRoleId ,
+			sys_user_role.cust_id cust_id 
 	    ]]>
 	</sql>
 
@@ -29,6 +31,9 @@
 		<if test="sysRoleId != null and sysRoleId != ''">
 			and sys_role_id = #{sysRoleId}
 		</if>
+		<if test="custId != null and custId != ''">
+			and cust_id = #{custId}
+		</if>
 	</sql>
 
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
@@ -41,6 +46,9 @@
 			<if test="sysRoleId != null">
 				sys_role_id ,
 			</if>
+			<if test="custId != null">
+				cust_id ,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="sysUserId != null">
@@ -48,6 +56,9 @@
 			</if>
 			<if test="sysRoleId != null">
 				#{sysRoleId} ,
+			</if>
+			<if test="custId != null">
+				#{custId} ,
 			</if>
 		</trim>
 	</insert>
@@ -99,6 +110,9 @@
 			<if test="sysRoleId != null">
 				sys_role_id = #{sysRoleId},
 			</if>
+			<if test="custId != null">
+				cust_id = #{custId},
+			</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -148,11 +162,11 @@
 		insert into
 		sys_user_role
 		(sys_user_id ,
-		sys_role_id ) values
+		sys_role_id ,cust_id) values
 
 		<foreach item="item" collection="sysRoleIds" open="("
 			separator="),(" close=")">
-			#{sysUserId},#{item}
+			#{sysUserId},#{item},#{custId}
 		</foreach>
 	</insert>
 

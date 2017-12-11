@@ -266,33 +266,25 @@ public class UserController extends BaseController {
 		user.setModifyTime(userResp.getModifyTime());
 		user.setParentId(userResp.getParentId());
 
+		if (userResp.getParentId() == 0) {
+			if(userResp.getId() != 0){
+				user.setCustId(userResp.getId());
+			}
+		} else {
+			user.setCustId(userResp.getParentId());
+		}
+
 		SysPermissionReq d = new SysPermissionReq();
 		d.setType("menu");
 		d.setParentid(0L);
 		d.setSortName("sortstring");
-		d.setOrder("dsc");
+		d.setOrder("desc");
 		d.setAvailable("0");
 		if ("admin".equals(userResp.getUserName())) {
 			ServiceResult<BaseList<SysPermissionResp>> serviceResult = permissionService.findSysPermissionMenuList(d);
 			user.setUrls(JSONArray.fromObject(serviceResult.getBusinessObject().getList()));
 		} else {
-			SysUserRoleReq req = new SysUserRoleReq();
-			req.setSysUserId(userResp.getId());
-			ServiceResult<BaseList<SysUserRoleResp>> resp = userRoleService.findSysUserRoleList(req);
-			String roleIds = "";
-			if (resp.isSuccess()) {
-				for (SysUserRoleResp r : resp.getBusinessObject().getList()) {
-					roleIds += r.getSysRoleId() + ",";
-				}
-			}
-			if (StringUtils.isNotBlank(roleIds)) {
-				roleIds.substring(0, roleIds.length() - 1);
-			}
-			Long[] roleIdsArray = new Long[roleIds.split(",").length];
-			int index = 0;
-			for (String str : roleIds.split(",")) {
-				roleIdsArray[index++] = Long.parseLong(str);
-			}
+			Long[] roleIdsArray = findUserRoles(userResp.getId());
 			user.setRoleIds(roleIdsArray);
 			d.setRoleIds(roleIdsArray);
 			d.setIsShow("0");
@@ -309,6 +301,27 @@ public class UserController extends BaseController {
 			}
 		}
 		getSession().setAttribute(Constant.ENVIRONMENT_USER, user);
+	}
+
+	private Long[] findUserRoles(Long userId) {
+		SysUserRoleReq req = new SysUserRoleReq();
+		req.setSysUserId(userId);
+		ServiceResult<BaseList<SysUserRoleResp>> resp = userRoleService.findSysUserRoleList(req);
+		String roleIds = "";
+		if (resp.isSuccess()) {
+			for (SysUserRoleResp r : resp.getBusinessObject().getList()) {
+				roleIds += r.getSysRoleId() + ",";
+			}
+		}
+		if (StringUtils.isNotBlank(roleIds)) {
+			roleIds.substring(0, roleIds.length() - 1);
+		}
+		Long[] roleIdsArray = new Long[roleIds.split(",").length];
+		int index = 0;
+		for (String str : roleIds.split(",")) {
+			roleIdsArray[index++] = Long.parseLong(str);
+		}
+		return roleIdsArray;
 	}
 
 	private void setCookie(UserResp user, String remember, HttpServletResponse response) {

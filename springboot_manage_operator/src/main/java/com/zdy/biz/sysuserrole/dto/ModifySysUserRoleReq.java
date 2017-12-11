@@ -13,6 +13,7 @@ public class ModifySysUserRoleReq  {
 	private Long id;
 	private Long sysUserId;
 	private Long sysRoleId;
+	private Long custId;
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -45,6 +46,7 @@ public class ModifySysUserRoleReq  {
 			this.setId(sysUserRole.getId());
 			this.setSysUserId(sysUserRole.getSysUserId());
 			this.setSysRoleId(sysUserRole.getSysRoleId());
+			this.setCustId(sysUserRole.getCustId());
 		}
 	}
 	public SysUserRole toSysUserRole(){
@@ -52,7 +54,16 @@ public class ModifySysUserRoleReq  {
 		sysUserRole.setId(this.id);
 		sysUserRole.setSysUserId(this.sysUserId);
 		sysUserRole.setSysRoleId(this.sysRoleId);
+		sysUserRole.setCustId(this.custId);
 		return sysUserRole;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 	
 }

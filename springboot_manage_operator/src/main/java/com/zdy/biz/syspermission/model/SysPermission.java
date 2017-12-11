@@ -58,6 +58,10 @@ public class SysPermission extends Page implements java.io.Serializable {
 	
 	private String className;
 	
+	private Long custId;
+	
+	private Long[] sysRoleIds;
+	
 	public SysPermission(){
 	}
 
@@ -213,6 +217,22 @@ public class SysPermission extends Page implements java.io.Serializable {
 
 	public void setIsShow(String isShow) {
 		this.isShow = isShow;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
+	}
+
+	public Long[] getSysRoleIds() {
+		return sysRoleIds;
+	}
+
+	public void setSysRoleIds(Long[] sysRoleIds) {
+		this.sysRoleIds = sysRoleIds;
 	}
  
 }

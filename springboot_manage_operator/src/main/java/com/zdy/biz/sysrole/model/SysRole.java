@@ -30,6 +30,8 @@ public class SysRole extends Page implements java.io.Serializable {
 	
 	private String checked;
 	
+	private Long custId;
+	
 	public SysRole(){
 	}
 
@@ -43,6 +45,7 @@ public class SysRole extends Page implements java.io.Serializable {
 				this.setId(sysRole.getId());
 				this.setName(sysRole.getName());
 				this.setAvailable(sysRole.getAvailable());
+				this.setCustId(sysRole.getCustId());
 		}
 	}
 	
@@ -51,6 +54,7 @@ public class SysRole extends Page implements java.io.Serializable {
 		map.put("id",this.id);
 		map.put("name",this.name);
 		map.put("available",this.available);
+		map.put("custId", this.custId);
 		return map;
 	}
 
@@ -101,6 +105,14 @@ public class SysRole extends Page implements java.io.Serializable {
 
 	public void setChecked(String checked) {
 		this.checked = checked;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
  
 }

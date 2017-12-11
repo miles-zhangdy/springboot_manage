@@ -25,6 +25,8 @@ public class SysUserRole extends Page implements java.io.Serializable {
 	private Long sysRoleId;
 	
 	private Long[] sysRoleIds;
+	
+	private Long custId;
 
 	public SysUserRole(){
 	}
@@ -39,6 +41,7 @@ public class SysUserRole extends Page implements java.io.Serializable {
 				this.setId(sysUserRole.getId());
 				this.setSysUserId(sysUserRole.getSysUserId());
 				this.setSysRoleId(sysUserRole.getSysRoleId());
+				this.setCustId(sysUserRole.getCustId());
 		}
 	}
 	
@@ -47,6 +50,7 @@ public class SysUserRole extends Page implements java.io.Serializable {
 		map.put("id",this.id);
 		map.put("sysUserId",this.sysUserId);
 		map.put("sysRoleId",this.sysRoleId);
+		map.put("custId", this.custId);
 		return map;
 	}
 
@@ -81,6 +85,14 @@ public class SysUserRole extends Page implements java.io.Serializable {
 
 	public void setSysRoleIds(Long[] sysRoleIds) {
 		this.sysRoleIds = sysRoleIds;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
  
 }

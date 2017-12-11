@@ -23,6 +23,8 @@ public class RoleVO extends Page implements java.io.Serializable {
 	 * 是否可用,1：可用，0不可用 db_column: available
 	 */
 	private String available;
+	
+	private Long custId;
 
 	public RoleVO() {
 	}
@@ -36,6 +38,7 @@ public class RoleVO extends Page implements java.io.Serializable {
 			this.setId(sysRole.getId());
 			this.setName(sysRole.getName());
 			this.setAvailable(sysRole.getAvailable());
+			this.setCustId(sysRole.getCustId());
 		}
 	}
 
@@ -44,6 +47,7 @@ public class RoleVO extends Page implements java.io.Serializable {
 		map.put("id", this.id);
 		map.put("name", this.name);
 		map.put("available", this.available);
+		map.put("custId", this.custId);
 		return map;
 	}
 
@@ -76,6 +80,15 @@ public class RoleVO extends Page implements java.io.Serializable {
 		sysRole.setId(this.id);
 		sysRole.setName(this.name);
 		sysRole.setAvailable(this.available);
+		sysRole.setCustId(this.custId);
 		return sysRole;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 }

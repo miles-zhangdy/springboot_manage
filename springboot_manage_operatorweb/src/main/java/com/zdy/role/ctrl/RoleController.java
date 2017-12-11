@@ -18,6 +18,8 @@ import com.zdy.biz.sysrole.dto.ModifySysRoleReq;
 import com.zdy.biz.sysrole.dto.SysRoleReq;
 import com.zdy.biz.sysrole.dto.SysRoleResp;
 import com.zdy.biz.sysrole.service.ISysRoleService;
+import com.zdy.common.Constant;
+import com.zdy.common.model.SessionUser;
 import com.zdy.exception.MyException;
 import com.zdy.role.vo.RoleVO;
 import com.zdy.util.BaseController;
@@ -25,7 +27,6 @@ import com.zdy.util.BaseList;
 import com.zdy.util.Result;
 import com.zdy.util.ServiceResult;
 import com.zdy.util.ZTreeVO;
-
 
 @Controller
 @RequestMapping("role")
@@ -49,10 +50,12 @@ public class RoleController extends BaseController {
 	public Result findSysRoleList(RoleVO vo) throws MyException {
 		Result res = null;
 		try {
+			SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
 			SysRoleReq d = new SysRoleReq(vo.toSysRole());
 			d.setBeginIndex((vo.getPage() - 1) * vo.getPageSize());
 			d.setPage(vo.getPage());
 			d.setPageSize(vo.getPageSize());
+			d.setCustId(sessionUser.getCustId());
 			ServiceResult<BaseList<SysRoleResp>> serviceResult = roleService.findSysRoleListByPageNo(d);
 			if (serviceResult.isSuccess()) {
 				res = new Result(true, serviceResult.getBusinessObject());
@@ -70,6 +73,8 @@ public class RoleController extends BaseController {
 	public Result addSysRole(RoleVO vo) throws MyException {
 		Result res = null;
 		try {
+			SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
+			vo.setCustId(sessionUser.getCustId());
 			ServiceResult<SysRoleResp> serviceResult = roleService.save(new CreateSysRoleReq(vo.toSysRole()));
 			if (serviceResult.isSuccess()) {
 				res = new Result(true, serviceResult.getMsg());
@@ -112,6 +117,8 @@ public class RoleController extends BaseController {
 	public Result modifySysRole(RoleVO vo) throws MyException {
 		Result res = null;
 		try {
+			SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
+			vo.setCustId(sessionUser.getCustId());
 			ServiceResult<SysRoleResp> serviceResult = roleService.update(new ModifySysRoleReq(vo.toSysRole()));
 			if (serviceResult.isSuccess()) {
 				res = new Result(true, serviceResult.getMsg());
@@ -149,6 +156,8 @@ public class RoleController extends BaseController {
 		Result res = null;
 		try {
 			SysPermissionReq d = new SysPermissionReq();
+			SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
+			d.setSysRoleIds(sessionUser.getRoleIds());
 			d.setRoleId(id);
 			d.setAvailable("0");
 			ServiceResult<BaseList<SysPermissionResp>> serviceResult = permissionService.findSysPermissionList(d);
@@ -156,7 +165,7 @@ public class RoleController extends BaseController {
 				List<ZTreeVO> list = new ArrayList<ZTreeVO>();
 				ZTreeVO vo = null;
 				for (SysPermissionResp resp : serviceResult.getBusinessObject().getList()) {
-					vo =  new ZTreeVO();
+					vo = new ZTreeVO();
 					vo.setId(resp.getId());
 					vo.setpId(resp.getParentid());
 					vo.setName(resp.getName());
@@ -173,11 +182,11 @@ public class RoleController extends BaseController {
 		}
 		return res;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/saverolepermission")
-	public Result saveRolePermission(String roleId, String permissionIds){
-		
+	public Result saveRolePermission(String roleId, String permissionIds) {
+
 		return null;
 	}
 

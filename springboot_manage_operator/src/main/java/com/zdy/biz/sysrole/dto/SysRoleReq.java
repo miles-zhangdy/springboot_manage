@@ -29,6 +29,8 @@ public class SysRoleReq extends Page {
 	
 	private Long userId;
 	
+	private Long custId;
+	
 	private Long[] ids;
 	
 	public void setIds(Long[] ids){
@@ -48,6 +50,7 @@ public class SysRoleReq extends Page {
 				this.setId(sysRoleReq.getId());
 				this.setName(sysRoleReq.getName());
 				this.setAvailable(sysRoleReq.getAvailable());
+				this.setCustId(sysRoleReq.getCustId());
 		}
 	}
 	
@@ -56,6 +59,7 @@ public class SysRoleReq extends Page {
 				this.id = sysRole.getId();
 				this.name = sysRole.getName();
 				this.available = sysRole.getAvailable();
+				this.custId = sysRole.getCustId();
 		}
 	}
 	
@@ -66,6 +70,7 @@ public class SysRoleReq extends Page {
 		sysRole.setAvailable(this.available);
 		sysRole.setIds(this.ids);
 		sysRole.setUserId(this.userId);
+		sysRole.setCustId(this.custId);
 		sysRole.setPage(this.getPage());
 		sysRole.setBeginIndex(this.getBeginIndex());
 		sysRole.setPageSize(this.getPageSize());
@@ -77,6 +82,7 @@ public class SysRoleReq extends Page {
 		map.put("id",this.id);
 		map.put("name",this.name);
 		map.put("available",this.available);
+		map.put("custId", this.custId);
 		return map;
 	}
 	
@@ -113,6 +119,14 @@ public class SysRoleReq extends Page {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 	
 

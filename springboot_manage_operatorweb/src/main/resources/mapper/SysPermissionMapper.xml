@@ -306,6 +306,16 @@
 		</if>
 		<where>
 			<include refid="listWhere" />
+			<if test="sysRoleIds != null">
+				and exists (select 1 from sys_role_permission c 
+					where a.id=c.sys_permission_id and 
+						c.sys_role_id=
+						<foreach item="item" collection="sysRoleIds" open="(" separator=","
+							close=")">
+							#{item}
+						</foreach>
+						 )
+			</if>
 		</where>
 		order by sortstring
 

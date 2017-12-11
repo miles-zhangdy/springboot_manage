@@ -13,6 +13,8 @@ public class CreateSysUserRoleReq {
 
 	private Long sysRoleId;
 	
+	private Long custId;
+	
 	private Long[] sysRoleIds;
 	
 	public void setSysUserId(Long sysUserId) {
@@ -39,6 +41,7 @@ public class CreateSysUserRoleReq {
 		if (sysUserRole != null) {
 			this.setSysUserId(sysUserRole.getSysUserId());
 			this.setSysRoleId(sysUserRole.getSysRoleId());
+			this.setCustId(sysUserRole.getCustId());
 		}
 	}
 
@@ -47,6 +50,7 @@ public class CreateSysUserRoleReq {
 		sysUserRole.setSysUserId(this.sysUserId);
 		sysUserRole.setSysRoleId(this.sysRoleId);
 		sysUserRole.setSysRoleIds(this.sysRoleIds);
+		sysUserRole.setCustId(this.custId);
 		return sysUserRole;
 	}
 
@@ -56,5 +60,13 @@ public class CreateSysUserRoleReq {
 
 	public void setSysRoleIds(Long[] sysRoleIds) {
 		this.sysRoleIds = sysRoleIds;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 }

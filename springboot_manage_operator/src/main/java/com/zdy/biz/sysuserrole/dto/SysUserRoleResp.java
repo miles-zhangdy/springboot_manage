@@ -25,6 +25,8 @@ public class SysUserRoleResp {
      * sysRoleId       db_column: sys_role_id 
      */	
 	private Long sysRoleId;
+	
+	private Long custId;
 
 	public SysUserRoleResp(){
 		
@@ -35,6 +37,7 @@ public class SysUserRoleResp {
 				this.setId(sysUserRoleResp.getId());
 				this.setSysUserId(sysUserRoleResp.getSysUserId());
 				this.setSysRoleId(sysUserRoleResp.getSysRoleId());
+				this.setCustId(sysUserRoleResp.getCustId());
 		}
 	}
 	
@@ -43,6 +46,7 @@ public class SysUserRoleResp {
 				this.id = sysUserRole.getId();
 				this.sysUserId = sysUserRole.getSysUserId();
 				this.sysRoleId = sysUserRole.getSysRoleId();
+				this.custId = sysUserRole.getCustId();
 		}
 	}
 	
@@ -51,6 +55,7 @@ public class SysUserRoleResp {
 		sysUserRole.setId(this.id);
 		sysUserRole.setSysUserId(this.sysUserId);
 		sysUserRole.setSysRoleId(this.sysRoleId);
+		sysUserRole.setCustId(this.custId);
 		return sysUserRole;
 	}
 	public Map<String,Object> toMap(){
@@ -58,6 +63,7 @@ public class SysUserRoleResp {
 		map.put("id",this.id);
 		map.put("sysUserId",this.sysUserId);
 		map.put("sysRoleId",this.sysRoleId);
+		map.put("custId",this.custId);
 		return map;
 	}
 	
@@ -84,6 +90,14 @@ public class SysUserRoleResp {
 	
 	public Long getSysRoleId() {
 		return this.sysRoleId;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
 	}
 
  

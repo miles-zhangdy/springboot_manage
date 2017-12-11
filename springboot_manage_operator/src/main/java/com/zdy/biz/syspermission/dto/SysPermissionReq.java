@@ -57,6 +57,10 @@ public class SysPermissionReq extends Page {
 	
 	private Long[] roleIds;
 	
+	private Long custId;
+	
+	private Long[] sysRoleIds;
+
 	public void setIds(Long[] ids){
 		this.ids = ids;
 	}
@@ -81,6 +85,7 @@ public class SysPermissionReq extends Page {
 				this.setAvailable(sysPermissionReq.getAvailable());
 				this.setClassName(sysPermissionReq.getClassName());
 				this.setIsShow(sysPermissionReq.getIsShow());
+				this.setCustId(sysPermissionReq.getCustId());
 		}
 	}
 	
@@ -96,6 +101,7 @@ public class SysPermissionReq extends Page {
 				this.available = sysPermission.getAvailable();
 				this.className = sysPermission.getClassName();
 				this.isShow = sysPermission.getIsShow();
+				this.custId = sysPermission.getCustId();
 		}
 	}
 	
@@ -114,6 +120,8 @@ public class SysPermissionReq extends Page {
 		sysPermission.setRoleIds(this.roleIds);
 		sysPermission.setClassName(this.className);
 		sysPermission.setIsShow(this.isShow);
+		sysPermission.setCustId(this.custId);
+		sysPermission.setSysRoleIds(this.sysRoleIds);
 		sysPermission.setPage(this.getPage());
 		sysPermission.setBeginIndex(this.getBeginIndex());
 		sysPermission.setPageSize(this.getPageSize());
@@ -237,6 +245,22 @@ public class SysPermissionReq extends Page {
 
 	public void setIsShow(String isShow) {
 		this.isShow = isShow;
+	}
+
+	public Long getCustId() {
+		return custId;
+	}
+
+	public void setCustId(Long custId) {
+		this.custId = custId;
+	}
+
+	public Long[] getSysRoleIds() {
+		return sysRoleIds;
+	}
+
+	public void setSysRoleIds(Long[] sysRoleIds) {
+		this.sysRoleIds = sysRoleIds;
 	}
 	
 
