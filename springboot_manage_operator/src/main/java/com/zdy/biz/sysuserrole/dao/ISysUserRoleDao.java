@@ -7,4 +7,5 @@ public interface ISysUserRoleDao  extends ISuperDao<SysUserRole> {
 	int batchSaving(SysUserRole s);
 	
 	int deleteByUserId(Long sysUserId);
+	
 }
