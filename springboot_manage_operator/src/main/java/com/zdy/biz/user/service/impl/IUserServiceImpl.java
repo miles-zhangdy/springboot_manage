@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import com.zdy.biz.sysuserrole.dao.ISysUserRoleDao;
 import com.zdy.biz.user.dao.IUserDao;
 import com.zdy.biz.user.dto.CreateUserReq;
 import com.zdy.biz.user.dto.ModifyUserReq;
@@ -34,6 +35,10 @@ public class IUserServiceImpl implements IUserService {
 
 	@Resource
 	private RedisTemplate redisTemplate;
+	
+	@Resource
+	private ISysUserRoleDao sysUserRoleDao; 	
+
 	//@WriteDataSource
 	// @ReadDataSource
 	@ReadDataSource
@@ -92,8 +97,12 @@ public class IUserServiceImpl implements IUserService {
 		if (req == null || ObjectUtils.isEmpty(req.getIds())) {
 			return result.error("删除条件不能为空");
 		}
-
+		Long[] userIdArray = req.getIds();
+		for(Long ids : userIdArray){
+			sysUserRoleDao.deleteByUserId(ids);
+		}
 		int count = userDao.delete(req.toUser());
+		
 		if (count == 0) {
 			return result.error("删除失败");
 		}

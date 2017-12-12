@@ -142,7 +142,7 @@
 
 
 
-<delete id="deleteByUserId" parameterType="long">
+	<delete id="deleteByUserId" parameterType="long">
 		delete from
 		sys_user_role
 		where sys_user_id = #{sysUserId}
