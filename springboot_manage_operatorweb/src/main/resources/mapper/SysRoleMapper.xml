@@ -32,7 +32,7 @@
 		<if test="available != null and available != ''">
 			and available = #{available}
 		</if>
-		<if test="custId != null and custId != ''">
+		<if test="custId != null">
 			and cust_id = #{custId}
 		</if>
 	</sql>
@@ -168,10 +168,10 @@
 
 		WHERE 1=1
 		<if test="available != null">
-			and a.available = #{available},
+			and a.available = #{available}
 		</if>
 		<if test="custId != null">
-			and a.cust_id = #{custId},
+			and a.cust_id = #{custId}
 		</if>
 	</select>
 

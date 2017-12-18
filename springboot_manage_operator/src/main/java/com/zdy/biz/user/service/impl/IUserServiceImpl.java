@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -14,6 +13,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import com.zdy.biz.sysuserrole.dao.ISysUserRoleDao;
+import com.zdy.biz.sysuserrole.model.SysUserRole;
 import com.zdy.biz.user.dao.IUserDao;
 import com.zdy.biz.user.dto.CreateUserReq;
 import com.zdy.biz.user.dto.ModifyUserReq;
@@ -118,7 +118,16 @@ public class IUserServiceImpl implements IUserService {
 		if (req == null) {
 			return result.error("修改条件不能为空");
 		}
-		int count = userDao.update(req.toUser());
+		int count = 0;
+		count = userDao.update(req.toUser());
+		if(req.getUserValidate() != null){
+			// 用户审核
+			SysUserRole userRole = new SysUserRole();
+			userRole.setSysUserId(req.getId());
+			userRole.setSysRoleId(18L);
+			userRole.setCustId(1L);
+			sysUserRoleDao.save(userRole);
+		}
 		if (count == 0) {
 			return result.error("修改失败");
 		}

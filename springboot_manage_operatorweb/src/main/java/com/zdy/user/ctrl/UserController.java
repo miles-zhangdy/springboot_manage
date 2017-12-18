@@ -87,6 +87,9 @@ public class UserController extends BaseController {
 			d.setPageSize(userVO.getPageSize());
 			SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
 			d.setParentId(sessionUser.getId());
+			if(userVO.getParentId() != null){
+				d.setParentId(userVO.getParentId());
+			}
 			ServiceResult<BaseList<UserResp>> serviceResult = userService.findUserListByPageNo(d);
 			if (serviceResult.isSuccess()) {
 				res = new Result(true, serviceResult.getBusinessObject());
@@ -107,6 +110,7 @@ public class UserController extends BaseController {
 		SessionUser sessionUser = (SessionUser) session.getAttribute(Constant.ENVIRONMENT_USER);
 		vo.setCreateUser(sessionUser.getUserName());
 		vo.setParentId(sessionUser.getId());
+		vo.setUserValidate(1);
 		ServiceResult<UserResp> serviceResult = userService.save(new CreateUserReq(vo.toUser()));
 
 		if (serviceResult != null && serviceResult.isSuccess()) {
@@ -290,7 +294,7 @@ public class UserController extends BaseController {
 		return res;
 	}
 
-	private void setSession(UserResp userResp) {
+	private void setSession(UserResp userResp) throws MyException {
 		SessionUser user = new SessionUser();
 		user.setId(userResp.getId());
 		user.setUserName(userResp.getUserName());
@@ -320,10 +324,15 @@ public class UserController extends BaseController {
 		d.setOrder("desc");
 		d.setAvailable("0");
 		if ("admin".equals(userResp.getUserName())) {
-			ServiceResult<BaseList<SysPermissionResp>> serviceResult = permissionService.findSysPermissionMenuList(d);
+		
+//			ServiceResult<BaseList<SysPermissionResp>> serviceResult = permissionService.findSysPermissionMenuList(d);
+			ServiceResult<BaseList<SysPermissionResp>> serviceResult = permissionService.findUserSysPermissionList(d);
 			user.setUrls(JSONArray.fromObject(serviceResult.getBusinessObject().getList()));
 		} else {
 			Long[] roleIdsArray = findUserRoles(userResp.getId());
+			if(roleIdsArray.length == 0){
+				throw new MyException("该用户尚未赋予角色");
+			}
 			user.setRoleIds(roleIdsArray);
 			d.setRoleIds(roleIdsArray);
 			d.setIsShow("0");

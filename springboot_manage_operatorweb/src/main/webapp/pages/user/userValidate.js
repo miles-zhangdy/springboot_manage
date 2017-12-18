@@ -38,7 +38,8 @@ function queryList(curPage, pageSize, initFlag) {
 		"pageSize" : pageSize,
 		"userName":$.trim($("#search-frm").find("#userName").val()),
 		"userSex":$("#search-frm").find("#userSex").val(),
-		"userValidate":0
+		"userValidate":0,
+		"parentId":0
 	},
 	function(data) {
 		if (data.success == true) {

@@ -17,7 +17,21 @@
 		<result property="checked" column="checked" />
 		<result property="className" column="class_name"/>
 		<result property="isShow" column="is_show"/>
-		<collection property="childList" column="id"
+	</resultMap>
+	
+	<resultMap id="MenuResultMap" type="com.zdy.biz.syspermission.model.SysPermission">
+		<id column="id" property="id" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="url" column="url" />
+		<result property="percode" column="percode" />
+		<result property="parentid" column="parentid" />
+		<result property="sortstring" column="sortstring" />
+		<result property="available" column="available" />
+		<result property="checked" column="checked" />
+		<result property="className" column="class_name"/>
+		<result property="isShow" column="is_show"/>
+		<collection property="childList" column="{id=id,sysroleids=sysroleids}" 
 			ofType="com.zdy.biz.syspermission.model.SysPermission" select="findListByParentId">
 		</collection>
 	</resultMap>
@@ -186,13 +200,28 @@
 		</if>
 	</select>
 
-	<select id="findListByParentId" resultMap="BaseResultMap">
+	<select id="findListByParentId" parameterType="map" resultMap="BaseResultMap">
 		select
-		<include refid="BaseColumnList" />
+			  a.id id,
+			  a.name NAME,
+			  a.type TYPE,
+			  a.url url,
+			  a.percode percode,
+			  a.parentid parentid,
+			  a.sortstring sortstring,
+			  a.available available,
+			  a.class_name class_name,
+			  a.is_show is_show 
 		from
-		sys_permission
+		sys_permission a
 		<where>
 			parentid = #{id} and type!='button' and is_show='0'
+			<if test="sysroleids != null">
+				and exists (select 1 from sys_role_permission c 
+					where a.id=c.sys_permission_id and 
+						c.sys_role_id in (${sysroleids})
+						 )
+			</if>
 		</where>
 		order by sortstring
 	</select>
@@ -309,7 +338,7 @@
 			<if test="sysRoleIds != null">
 				and exists (select 1 from sys_role_permission c 
 					where a.id=c.sys_permission_id and 
-						c.sys_role_id=
+						c.sys_role_id in 
 						<foreach item="item" collection="sysRoleIds" open="(" separator=","
 							close=")">
 							#{item}
@@ -322,16 +351,34 @@
 	</select>
 
 
-	<select id="findUserRolePermissionByRoleIds" resultMap="BaseResultMap">
+	<select id="findUserRolePermissionByRoleIds" resultMap="MenuResultMap">
 
-		select distinct a.* from sys_permission a
-		inner join
-		sys_role_permission b on a.id=b.sys_permission_id and
-		b.sys_role_id in
+		select distinct a.* ,<if test="roleId != null ">
+			#{roleId}
+		</if>
+		<if test="roleIds != null ">
+			<foreach item="item" collection="roleIds" open="" separator=","
+				close="">
+				#{item}
+			</foreach>
+		</if>
+		<if test="roleIds == null and roleId == null ">
+			null
+		</if>
+		as sysroleids 
+		
+		
+		from sys_permission a
 		<if test="roleId != null ">
+			inner join
+			sys_role_permission b on a.id=b.sys_permission_id and
+			b.sys_role_id in
 			(#{roleId})
 		</if>
 		<if test="roleIds != null ">
+				inner join
+			sys_role_permission b on a.id=b.sys_permission_id and
+			b.sys_role_id in
 			<foreach item="item" collection="roleIds" open="(" separator=","
 				close=")">
 				#{item}

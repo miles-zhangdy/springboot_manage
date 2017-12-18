@@ -96,9 +96,10 @@ public class SysUserRoleServiceImpl implements ISysUserRoleService {
 			return result.error("保存对象不能为空");
 		}
 		SysUserRole d = req.toSysUserRole();
-		sysUserRoleDao.deleteByUserId(req.getSysUserId());
-		
-		int count = sysUserRoleDao.batchSaving(d);
+		int count = sysUserRoleDao.deleteByUserId(req.getSysUserId());
+		if(d.getSysRoleIds() != null && d.getSysRoleIds().length != 0){
+			count += sysUserRoleDao.batchSaving(d);
+		}
 		if (count == 0) {
 			return result.error("保存失败");
 		}

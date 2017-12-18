@@ -16,6 +16,8 @@ import com.zdy.biz.sysuserrole.dto.ModifySysUserRoleReq;
 import com.zdy.biz.sysuserrole.dto.SysUserRoleReq;
 import com.zdy.biz.sysuserrole.dto.SysUserRoleResp;
 import com.zdy.biz.sysuserrole.service.ISysUserRoleService;
+import com.zdy.common.Constant;
+import com.zdy.common.model.SessionUser;
 import com.zdy.exception.MyException;
 import com.zdy.userrole.vo.UserRoleVO;
 import com.zdy.util.BaseController;
@@ -143,8 +145,10 @@ public class UserRoleController extends BaseController {
 	public Result findUserRoleList(Long sysUserId) throws MyException {
 		Result res = new Result();
 		try {
+			SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
 			SysRoleReq req = new SysRoleReq();
 			req.setUserId(sysUserId);
+			req.setCustId(sessionUser.getCustId());
 			ServiceResult<BaseList<SysRoleResp>> serviceResult = roleService.findSysRoleList(req);
 			if (serviceResult.isSuccess()) {
 				res.setSuccess(true);
