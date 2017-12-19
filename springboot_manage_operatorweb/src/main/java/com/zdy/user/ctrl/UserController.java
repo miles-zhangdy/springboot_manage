@@ -257,12 +257,16 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public Result login(UserVO userVO, String remember, HttpServletResponse response) throws MyException {
+	public Result login(UserVO userVO, String remember, String validateCode, HttpServletResponse response) throws MyException {
 		Result res = null;
 		if (userVO == null) {
 			throw new MyException("登录对象不能为空");
 		}
 		try {
+			String sessionValidateCode = (String) getSession().getAttribute(Constant.VALIDATE_CODE);
+			if(sessionValidateCode == null || !sessionValidateCode.equals(validateCode)){
+				throw new MyException("验证码错误，请重新登录！！");
+			}
 			UserReq req = new UserReq(userVO.toUser());
 			ServiceResult<UserResp> serviceResult = userService.login(req);
 			if (serviceResult != null && serviceResult.isSuccess() && serviceResult.getBusinessObject() != null

@@ -29,20 +29,36 @@ $(function() {
 	});*/
 
 	$("#login-btn").click(function() {
-		if(ObjectUtil.isEmpty($("#userName").val())){
-			swal("请输入用户名");
-			$("#userName").focus();
-			return false;
-		}
-		if(ObjectUtil.isEmpty($("#password").val())){
-			swal("请输入密码");
-			$("#password").focus();
-			return false;
-		}
-		login();
+		checkLogin();
 	});
-
+	document.onkeydown = function (){
+		var keyevt = arguments[0] || window.event;
+		if(keyevt.keyCode == 13){
+			checkLogin();
+		}
+	} 
 });
+
+function checkLogin(){
+	if(ObjectUtil.isEmpty($("#userName").val())){
+		swal("请输入用户名");
+		$("#userName").focus();
+		return false;
+	}
+	if(ObjectUtil.isEmpty($("#password").val())){
+		swal("请输入密码");
+		$("#password").focus();
+		return false;
+	}
+	if(ObjectUtil.isEmpty($("#validateCode").val())){
+		swal("请输入验证码");
+		$("#validateCode").focus();
+		return false;
+	}
+	login();
+}
+
+
 function login() {
 	$.ajax({
 		url : "user/login",
@@ -50,14 +66,16 @@ function login() {
 		data : {
 			userName : $("#userName").val(),
 			password : $("#password").val(),
+			validateCode : $("#validateCode").val(),
 			remember : $("#checkbox-signup").prop("checked")
 		},
 		dataType : 'json',
 		success : function(result) {
 			if(result.success){
-				window.location.href="user/toindex"
+				window.location.href="user/toindex";
 			}else{
 				swal(result.msg);
+				checkImg();
 			}
 		}
 	});

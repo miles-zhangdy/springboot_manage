@@ -35,14 +35,25 @@
 								name="password" placeholder="Password"> 
 						</div>
 					</div>
-
+					
+					<div class="form-group">
+						<div class="col-xs-6">
+							<input class="form-control" type="text" id="validateCode" 	maxlength="4"  
+								name="validateCode" placeholder="验证码"> 
+						</div>
+						<div class="col-xs-6">
+							<img src="validatecode/getValidateCode" id="validatiCodeImg"  style="padding-top: 10px; height:40px">
+								<a onclick="checkImg()" style="margin:20px">更换</a> 
+						</div>
+					</div>
+					
 					<div class="form-group ">
 						<div class="col-xs-12">
 							<div class="checkbox checkbox-primary">
 								<input id="checkbox-signup" type="checkbox"> <label
 									for="checkbox-signup"> 记住密码 </label>
 							</div>
-
+							
 						</div>
 					</div>
 
@@ -74,6 +85,16 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		$(function(){
+			checkImg();
+		});
+	
+		function checkImg(){
+			var data = Math.random();
+			$("#validatiCodeImg").attr('src',"${pageContext.request.contextPath}/validatecode/getValidateCode?data="+data);
+		}
+	</script>
 	  <script src="pages/login/login.js"></script>
 </body>
 </html>
