@@ -183,7 +183,7 @@ function showModify(id){
 	$("#edit-frm").find("input[name='available']:radio[value='"+data.available+"']").prop("checked", true);
 	$("#edit-frm").find("input[name='isShow']:radio[value='"+data.isShow+"']").prop("checked", true);
 	$("#edit-frm").find("#id").val(data.id);
-	$("#edit-frm").find("#className").val(data.className);
+	$("#edit-frm").find("#menuClassName").val(data.className);
 	$('#editModal').modal('show');
 	
 }

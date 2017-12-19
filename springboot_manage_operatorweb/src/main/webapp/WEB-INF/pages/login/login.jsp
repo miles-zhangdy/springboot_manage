@@ -43,7 +43,7 @@
 						</div>
 						<div class="col-xs-6">
 							<img src="validatecode/getValidateCode" id="validatiCodeImg"  style="padding-top: 10px; height:40px">
-								<a onclick="checkImg()" style="margin:20px">更换</a> 
+								<a href="javascript:void(0)" onclick="checkImg()" style="margin-left:15px">换一张</a> 
 						</div>
 					</div>
 					

@@ -5,8 +5,8 @@
 	<div class="topbar-left">
 		<div class="text-center">
 			<a href="user/toindex" class="logo"><i
-				class="icon-magnet icon-c-logo"></i><span>Ub<i
-					class="md md-album"></i>ld
+				class="icon-magnet icon-c-logo"></i><span>ZD<i
+					class="md md-album"></i>Y
 			</span></a>
 		</div>
 	</div>
