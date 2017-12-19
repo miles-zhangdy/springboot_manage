@@ -66,6 +66,8 @@ public class UserRoleController extends BaseController {
 			CreateSysUserRoleReq req = new CreateSysUserRoleReq();
 			req.setSysUserId(sysUserId);
 			req.setSysRoleIds(roleIds);
+			SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
+			req.setCustId(sessionUser.getCustId());
 			ServiceResult<SysUserRoleResp> serviceResult = userroleService.save(req);
 			if(serviceResult.isSuccess()){
 				res = new Result(true, serviceResult.getMsg());

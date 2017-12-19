@@ -127,7 +127,7 @@ public class UserController extends BaseController {
 		Result res = null;
 		try {
 			vo.setCreateUser(vo.getUserName());
-			vo.setParentId(0L);
+			vo.setParentId(1L);
 			vo.setPassword(vo.getUserName());
 			ServiceResult<UserResp> serviceResult = userService.save(new CreateUserReq(vo.toUser()));
 			
