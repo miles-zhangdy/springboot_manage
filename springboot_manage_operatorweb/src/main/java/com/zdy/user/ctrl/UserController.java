@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -394,5 +395,24 @@ public class UserController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = "/personinfo", method=RequestMethod.GET)
+	public String toPersonInfoPage(){
+		return "person/personInfo";
+	}
 	
+	@RequestMapping(value = "/getperson")
+	@ResponseBody
+	public Result getPerson() {
+		Result res = null;
+		SessionUser sessionUser = (SessionUser) getSession().getAttribute(Constant.ENVIRONMENT_USER);
+		UserReq req = new UserReq();
+		req.setId(sessionUser.getId());
+		ServiceResult<UserResp> serviceResult = userService.getById(req);
+		if (serviceResult.isSuccess()) {
+			res = new Result(true, serviceResult.getBusinessObject());
+		} else {
+			return new Result(false, serviceResult.getMsg());
+		}
+		return res;
+	}
 }
