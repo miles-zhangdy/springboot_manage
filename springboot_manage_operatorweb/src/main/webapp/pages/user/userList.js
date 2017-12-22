@@ -125,7 +125,8 @@ function insertTable(data){//#datatable
 	if(data.length > 0){
 		var content = "";
 		$.each(data, function(index, item){
-			content += "<tr><td><input type='checkbox' value='" + item.id + "' name='datacheckbox' ></td>";
+			content += "<tr><td><div class=\"checkbox checkbox-primary checkbox-single m-r-15\"><input type='checkbox' id=usercheck"+item.id+" value='" + item.id + "' name='datacheckbox' >";
+			content += "<label for=\"usercheck"+item.id+"\"></label></div> </td>";
 			content += "<td>" + item.userName + "</td>";
 			content += "<td>" + item.userAge + "</td>";
 			content += "<td>" + getSex(item.userSex) + "</td>";

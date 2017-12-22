@@ -79,25 +79,32 @@ td {
 										<i class="glyphicon  glyphicon-remove">&nbsp;删除</i>
 									</a>
 								</div>
-								<table id="datatable" class="table table-striped table-bordered">
-									<thead>
-										<tr>
-											<th><input type="checkbox" id="checkall"></th>
-											<th>用户名</th>
-											<th>年龄</th>
-											<th>性别</th>
-											<th>联系方式</th>
-											<th>冻结</th>
-											<th>创建时间</th>
-											<th>操作</th>
-										</tr>
-									</thead>
-									<tbody>
-									</tbody>
-								</table>
-								<div class="row">
-									<div class="col-md-12">
-										<div id="pagetable" class="pagination"></div>
+								<div class="table-responsive">
+									<table id="datatable" class="table table-hover mails m-0 table table-actions-bar">
+										<thead>
+											<tr>
+												<th>
+													<div class="checkbox checkbox-primary checkbox-single m-r-15">
+	                                                    <input id="checkall" type="checkbox">
+	                                                    <label for=""checkall""></label>
+	                                                </div>
+												</th>
+												<th>用户名</th>
+												<th>年龄</th>
+												<th>性别</th>
+												<th>联系方式</th>
+												<th>冻结</th>
+												<th>创建时间</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+									<div class="row">
+										<div class="col-md-12">
+											<div id="pagetable" class="pagination"></div>
+										</div>
 									</div>
 								</div>
 							</div>
