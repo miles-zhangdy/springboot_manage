@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>参数管理</title>
 <%@ include file="../static/top.jsp"%>
+<link href="static/plugins/summernote/dist/summernote.css" rel="stylesheet" />
+  <script src="static/plugins/tinymce/tinymce.min.js"></script>
 <style type="text/css">
 th {
 	text-align: center;
@@ -127,14 +129,14 @@ td {
 										<label class="col-md-2 control-label">参数名</label>
 										<div class="col-md-10">
 											<input type="text" class="form-control" name="paramName"
-												  id="paramName" placeholder="参数名">
+												id="paramName" placeholder="参数名">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-md-2 control-label"  >用途</label>
+										<label class="col-md-2 control-label">用途</label>
 										<div class="col-md-10">
 											<input type="text" id="paramComment" name="paramComment"
-												  class="form-control" placeholder="参数用途">
+												class="form-control" placeholder="参数用途">
 										</div>
 									</div>
 								</div>
@@ -142,19 +144,23 @@ td {
 									<div class="form-group">
 										<label class="col-md-2 control-label">参数值</label>
 										<div class="col-md-10">
-											<input type="text" class="form-control"
-												name="paramValue" id="paramValue" maxlength="18"
-												placeholder="参数值">
+											<input type="text" class="form-control" name="paramValue"
+												id="paramValue" maxlength="18" placeholder="参数值">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-md-2 control-label" for="repetitionPassword">备注</label>
 										<div class="col-md-10">
-											<input type="text" id="remark"
-												name="remark" maxlength="18"
+											<input type="text" id="remark" name="remark" maxlength="18"
 												class="form-control" placeholder="备注">
 										</div>
 									</div>
+								</div>
+								<div class="col-md-12">
+										<label class="col-md-1 control-label">参数值2</label>
+										<div class="col-md-11">
+											<textarea id="editData" name="editData"></textarea>
+										</div>
 								</div>
 							</div>
 						</div>
@@ -169,6 +175,33 @@ td {
 	</div>
 	<!-- END wrapper -->
 	<!-- Examples -->
+   <script type="text/javascript">
+   		$(document).ready(function () {
+		    if($("#editData").length > 0){
+		        tinymce.init({
+		            selector: "textarea#editData",
+		            theme: "modern",
+		            height:300,
+		            plugins: [
+		                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+		                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+		                "save table contextmenu directionality emoticons template paste textcolor"
+		            ],
+		            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons", 
+		            style_formats: [
+		                {title: 'Bold text', inline: 'b'},
+		                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+		                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+		                {title: 'Example 1', inline: 'span', classes: 'example1'},
+		                {title: 'Example 2', inline: 'span', classes: 'example2'},
+		                {title: 'Table styles'},
+		                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+		            ]
+		        });    
+		    }  
+		});
+  </script>
+	
 	<script src="pages/siteparameter/parameterList.js"></script>
 </body>
 </html>

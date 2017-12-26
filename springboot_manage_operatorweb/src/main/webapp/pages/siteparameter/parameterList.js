@@ -9,6 +9,7 @@ var pageSize = 10;
 $(function() {
 	
 	$("#addBtn").click(function() {
+		$(".error").remove();
 		$("#edit-frm")[0].reset();
 		$("#edit-frm").find("#editFlag").val("add");
 		$('#editModal').modal('show');
@@ -133,6 +134,7 @@ function editSiteParameter(){
 
 
 function showModify(id){
+	$(".error").remove();
 	var data;
 	$.ajax({
 		url:'siteparameter/getsiteparameter',
@@ -195,7 +197,8 @@ function editDataValidate(){
 	$("#edit-frm").validate(
 			{
 				submitHandler : function(form) {
-					editSiteParameter();
+					//editSiteParameter();
+					alert($("#editData_ifr").html())
 				},
 				rules : {
 					paramName : {
@@ -206,6 +209,9 @@ function editDataValidate(){
 					},
 					paramComment : {
 						required : true
+					},
+					editData:{
+						required : true
 					}
 					
 				},
@@ -214,10 +220,13 @@ function editDataValidate(){
 						required : "请输入参数名"
 					},
 					paramValue : {
-						digits : "请输入参数值"
+						required : "请输入参数值"
 					},
-					paramValue : {
-						digits : "请输入参数用途"
+					paramComment : {
+						required : "请输入参数用途"
+					},
+					editData:{
+						required : "请输入参数名"
 					}
 				},
 				errorElement : "em",

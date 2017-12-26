@@ -25,26 +25,25 @@
 <link href="static/plugins/sweetalert/dist/sweetalert.css"
 	rel="stylesheet" type="text/css">
 
-
 <script>
 	var resizefunc = [];
 </script>
 <script src="static/js/modernizr.min.js"></script>
 <script src="static/js/jquery-2.1.1.js"></script>
 <script src="static/js/bootstrap.js"></script>
-<script src="static/js/detect.js"></script>
-<script src="static/js/fastclick.js"></script>
-<script src="static/js/jquery.slimscroll.js"></script>
-<script src="static/js/jquery.blockUI.js"></script>
-<script src="static/js/waves.js"></script>
-<script src="static/js/wow.min.js"></script>
+<script src="static/js/detect.js"></script> 
+<script src="static/js/fastclick.js"></script> 
+<script src="static/js/jquery.slimscroll.js"></script> 
+<script src="static/js/jquery.blockUI.js"></script> 
+<script src="static/js/waves.js"></script> 
+<script src="static/js/wow.min.js"></script> 
 <script src="static/js/jqPaginator.min.js"></script>
 <script src="static/js/jquery.validate.min.js"></script>
 <script src="static/js/jqueryValidationExtend.js"></script>
 <script src="static/js/additional-methods.js"></script>
 <script src="static/js/common.js"></script>
-<script src="static/js/jquery.scrollTo.min.js"></script>
-<script src="static/plugins/peity/jquery.peity.min.js"></script>
+<script src="static/js/jquery.scrollTo.min.js"></script> 
+<script src="static/plugins/peity/jquery.peity.min.js"></script> 
 <script src="static/plugins/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- jQuery  -->

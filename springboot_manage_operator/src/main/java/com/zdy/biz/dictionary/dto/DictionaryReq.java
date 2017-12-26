@@ -85,6 +85,9 @@ public class DictionaryReq extends Page {
 		dictionary.setCreateUser(this.createUser);
 		dictionary.setOperTime(this.operTime);
 		dictionary.setIds(this.ids);
+		dictionary.setPage(this.getPage());
+		dictionary.setBeginIndex(this.getBeginIndex());
+		dictionary.setPageSize(this.getPageSize());
 		return dictionary;
 	}
 

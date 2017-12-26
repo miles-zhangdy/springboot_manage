@@ -8,17 +8,13 @@
 <script src="static/plugins/jquery-knob/jquery.knob.js"></script>
    <script src="static/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="static/plugins/datatables/dataTables.bootstrap.js"></script>
-<!-- <script src="static/pages/jquery.dashboard.js"></script> -->
+<script src="static/pages/jquery.dashboard.js"></script>
 <script src="static/js/jquery.core.js"></script>
 <script src="static/js/jquery.app.js"></script>
-<!-- Sweet-Alert  -->
-
-<!--FooTable-->
 <script src="static/plugins/footable/js/footable.all.min.js"></script>
 
 <script
 	src="static/plugins/bootstrap-select/dist/js/bootstrap-select.min.js"
 	type="text/javascript"></script>
 
-<!--FooTable Example-->
 <script src="static/pages/jquery.footable.js"></script>
