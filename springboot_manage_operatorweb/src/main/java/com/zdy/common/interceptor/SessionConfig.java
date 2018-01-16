@@ -33,7 +33,7 @@ public class SessionConfig extends WebMvcConfigurationSupport {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new SessionInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/tologin",
 				"/error", "/user/getremember", "/user/login", "/user/toregisterpage",
-				"/user/registeruser","/user/getuserbyname", "/validatecode/getValidateCode");
+				"/user/registeruser","/user/getuserbyname", "/validatecode/getvalidatecode");
 		super.addInterceptors(registry);
 	}
 

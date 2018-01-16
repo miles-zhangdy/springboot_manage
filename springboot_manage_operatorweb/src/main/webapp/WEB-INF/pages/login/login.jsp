@@ -92,7 +92,7 @@
 	
 		function checkImg(){
 			var data = Math.random();
-			$("#validatiCodeImg").attr('src',"${pageContext.request.contextPath}/validatecode/getValidateCode?data="+data);
+			$("#validatiCodeImg").attr('src',"${pageContext.request.contextPath}/validatecode/getvalidatecode?data="+data);
 		}
 	</script>
 	  <script src="pages/login/login.js"></script>
