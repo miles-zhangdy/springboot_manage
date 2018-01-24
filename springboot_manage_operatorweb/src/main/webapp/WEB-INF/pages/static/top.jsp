@@ -38,7 +38,7 @@
 <script src="static/js/waves.js"></script> 
 <script src="static/js/wow.min.js"></script> 
 <script src="static/js/jqPaginator.min.js"></script>
-<script src="static/js/jquery.validate.min.js"></script>
+<script src="static/plugins/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="static/js/jqueryValidationExtend.js"></script>
 <script src="static/js/additional-methods.js"></script>
 <script src="static/js/common.js"></script>
