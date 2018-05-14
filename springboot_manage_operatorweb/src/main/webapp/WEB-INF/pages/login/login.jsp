@@ -14,7 +14,7 @@
 		<div class=" card-box">
 			<div class="panel-heading">
 				<h3 class="text-center">
-					 <strong class="text-custom">会员登录</strong>
+					 <strong class="text-custom">登录</strong>
 				</h3>
 			</div>
 

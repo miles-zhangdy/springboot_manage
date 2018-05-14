@@ -14,7 +14,7 @@
 		<div class=" card-box">
 			<div class="panel-heading">
 				<h3 class="text-center">
-					<strong class="text-custom">注册会员</strong>
+					<strong class="text-custom">注册</strong>
 				</h3>
 			</div>
 
