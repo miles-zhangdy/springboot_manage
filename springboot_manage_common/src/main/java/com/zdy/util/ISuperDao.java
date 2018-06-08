@@ -1,5 +1,6 @@
 package com.zdy.util;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface ISuperDao<T extends Page> {
@@ -19,5 +20,7 @@ public interface ISuperDao<T extends Page> {
 	T getById(Long l);
 	
 	T fetch(T t);
+	
+	T fetch(HashMap param);
 	
 }

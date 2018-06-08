@@ -1,7 +1,9 @@
 package com.zdy.biz.sysrole.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zdy.biz.sysrole.dao.ISysRoleDao;
 import com.zdy.biz.sysrole.dto.CreateSysRoleReq;
 import com.zdy.biz.sysrole.dto.ModifySysRoleReq;
@@ -40,11 +45,18 @@ public class SysRoleServiceImpl implements ISysRoleService {
 		if (req == null) {
 			return result.error("查询条件不能为空");
 		}
-
+		PageHelper.startPage(req.getPage(), req.getPageSize());
 		List<SysRole> baseList = sysRoleDao.findList(req.toSysRole());
-		int totalRows = sysRoleDao.count(req.toSysRole());
-		int pageSize = req.getPageSize();
-		int totalPage = totalRows % pageSize > 0 ? totalRows / pageSize + 1 : totalRows / pageSize + 1;
+
+		PageInfo<SysRole> info = new PageInfo(sysRoleDao.findList(req.toSysRole()));
+		Map m = new HashMap();
+		m.put("total", info.getTotal());
+		m.put("rows", info.getList());
+		long total = info.getTotal();
+//		System.out.println();
+//		int totalRows = sysRoleDao.count(req.toSysRole());
+//		int pageSize = req.getPageSize();
+		long totalPage = total % req.getPageSize() == 0 ? total / req.getPageSize()  : total / req.getPageSize() + 1;
 
 		List<SysRoleResp> list = new ArrayList<SysRoleResp>();
 		if (!CollectionUtils.isEmpty(baseList)) {
@@ -59,9 +71,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
 		BaseList<SysRoleResp> sysRoleList = new BaseList<SysRoleResp>();
 		sysRoleList.setList(list);
 		sysRoleList.setCurPage(req.getPage());
-		sysRoleList.setPageSize(pageSize);
+		sysRoleList.setPageSize(req.getPageSize());
 		sysRoleList.setTotalPage(totalPage);
-		sysRoleList.setTotalRows(totalRows);
+		sysRoleList.setTotalRows(total);
 		return result.success(sysRoleList);
 	}
 

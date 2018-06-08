@@ -28,6 +28,7 @@ import com.zdy.biz.user.dto.UserResp;
 import com.zdy.biz.user.service.IUserService;
 import com.zdy.common.Constant;
 import com.zdy.common.model.SessionUser;
+import com.zdy.enums.Status;
 import com.zdy.exception.MyException;
 import com.zdy.user.vo.UserVO;
 import com.zdy.util.BaseController;
@@ -269,6 +270,7 @@ public class UserController extends BaseController {
 				throw new MyException("验证码错误，请重新登录！！");
 			}
 			UserReq req = new UserReq(userVO.toUser());
+			req.setUserSex(Status._1);
 			ServiceResult<UserResp> serviceResult = userService.login(req);
 			if (serviceResult != null && serviceResult.isSuccess() && serviceResult.getBusinessObject() != null
 					&& StringUtils.isNotBlank(serviceResult.getBusinessObject().getId() + "")) {

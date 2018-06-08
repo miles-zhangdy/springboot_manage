@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.zdy.enums.Status;
 import com.zdy.util.Page;
 
 public class User extends Page implements java.io.Serializable {
@@ -46,7 +47,7 @@ public class User extends Page implements java.io.Serializable {
 	/**
 	 * 0女1男 db_column: user_sex
 	 */
-	private Integer userSex;
+	private Status userSex;
 	/**
 	 * userPhone db_column: user_phone
 	 */
@@ -73,7 +74,7 @@ public class User extends Page implements java.io.Serializable {
 	private Date modifyTime;
 
 	private Long[] ids;
-	
+
 	public User() {
 	}
 
@@ -157,11 +158,19 @@ public class User extends Page implements java.io.Serializable {
 		return this.userAge;
 	}
 
-	public void setUserSex(Integer value) {
-		this.userSex = value;
+	public void setUserSex(Object value) {
+		if (value instanceof Status) {
+			this.userSex = (Status) value;
+		} else {
+			if (value != null) {
+				this.userSex = Status.valueOf(Integer.parseInt(value.toString()));
+
+			}
+
+		}
 	}
 
-	public Integer getUserSex() {
+	public Status getUserSex() {
 		return this.userSex;
 	}
 

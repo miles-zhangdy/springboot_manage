@@ -12,7 +12,7 @@
 		<result property="parentId" column="parent_id" />
 		<result property="userCompellation" column="user_compellation" />
 		<result property="userAge" column="user_age" />
-		<result property="userSex" column="user_sex" />
+		<result property="userSex" column="user_sex"/>
 		<result property="userPhone" column="user_phone" />
 		<result property="userFreeze" column="user_freeze" />
 		<result property="userValidate" column="user_validate" />
@@ -59,7 +59,7 @@
 			and user_age = #{userAge}
 		</if>
 		<if test="userSex != null ">
-			and user_sex = #{userSex}
+			and user_sex = #{userSex, jdbcType=INTEGER}
 		</if>
 		<if test="userPhone != null and userPhone != ''">
 			and user_phone = #{userPhone}

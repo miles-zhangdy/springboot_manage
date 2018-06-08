@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -56,10 +57,8 @@
 			</exclusions>
 		</dependency>
 		<!-- 使用log4j2 -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-log4j2</artifactId> 
+			</dependency> -->
 		<!-- druid数据库连接池 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -80,8 +79,13 @@
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.0.1</version>
+			<version>1.1.1</version>
 		</dependency>
+		<!-- <dependency>
+			<groupId>net.oschina.j2cache</groupId>
+			<artifactId>j2cache-mybatis</artifactId>
+			<version>2.3.17-release</version>
+		</dependency> -->
 		<!-- MySql数据库驱动 -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -141,7 +145,7 @@
 			<artifactId>commons-collections	</artifactId>
 		</dependency>
 
-		
+
 		<!-- thymeleaf模板插件 -->
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-thymeleaf</artifactId> 
 			</dependency> -->

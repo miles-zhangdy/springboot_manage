@@ -3,6 +3,7 @@ package com.zdy.biz.user.dto;
 import java.util.Date;
 
 import com.zdy.biz.user.model.User;
+import com.zdy.enums.Status;
 
 public class CreateUserReq {
 
@@ -21,7 +22,7 @@ public class CreateUserReq {
 
 	private Integer userAge;
 
-	private Integer userSex;
+	private Status userSex;
 
 	private String userPhone;
 
@@ -96,11 +97,11 @@ public class CreateUserReq {
 		return this.userAge;
 	}
 
-	public void setUserSex(Integer userSex) {
+	public void setUserSex(Status userSex) {
 		this.userSex = userSex;
 	}
 
-	public Integer getUserSex() {
+	public Status getUserSex() {
 		return this.userSex;
 	}
 

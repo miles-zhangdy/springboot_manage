@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.zdy.biz.syspermission.dto.SysPermissionResp;
+import com.zdy.enums.Status;
 
 import net.sf.json.JSONArray;
 
@@ -41,7 +42,7 @@ public class SessionUser implements java.io.Serializable {
 	/**
 	 * 0女1男 db_column: user_sex
 	 */
-	private Integer userSex;
+	private Status userSex;
 	/**
 	 * userPhone db_column: user_phone
 	 */
@@ -150,11 +151,11 @@ public class SessionUser implements java.io.Serializable {
 		return this.userAge;
 	}
 
-	public void setUserSex(Integer value) {
+	public void setUserSex(Status value) {
 		this.userSex = value;
 	}
 
-	public Integer getUserSex() {
+	public Status getUserSex() {
 		return this.userSex;
 	}
 

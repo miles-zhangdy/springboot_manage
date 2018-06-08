@@ -10,9 +10,9 @@ public class BaseList<B> {
 	
 	private int pageSize;
 	
-	private int totalPage;
+	private long totalPage;
 	
-	private int totalRows;
+	private long totalRows;
 
 
 	public int getCurPage() {
@@ -31,19 +31,19 @@ public class BaseList<B> {
 		this.pageSize = pageSize;
 	}
 
-	public int getTotalPage() {
+	public long getTotalPage() {
 		return totalPage;
 	}
 
-	public void setTotalPage(int totalPage) {
+	public void setTotalPage(long totalPage) {
 		this.totalPage = totalPage;
 	}
 
-	public int getTotalRows() {
+	public long getTotalRows() {
 		return totalRows;
 	}
 
-	public void setTotalRows(int totalRows) {
+	public void setTotalRows(long totalRows) {
 		this.totalRows = totalRows;
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		
 		try {
 			SpringApplication.run(Application.class, args);
 		} catch (Exception e) {

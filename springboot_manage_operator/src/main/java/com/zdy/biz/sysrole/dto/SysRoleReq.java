@@ -71,9 +71,9 @@ public class SysRoleReq extends Page {
 		sysRole.setIds(this.ids);
 		sysRole.setUserId(this.userId);
 		sysRole.setCustId(this.custId);
-		sysRole.setPage(this.getPage());
-		sysRole.setBeginIndex(this.getBeginIndex());
-		sysRole.setPageSize(this.getPageSize());
+//		sysRole.setPage(this.getPage());
+//		sysRole.setBeginIndex(this.getBeginIndex());
+//		sysRole.setPageSize(this.getPageSize());
 		return sysRole;
 	}
 	

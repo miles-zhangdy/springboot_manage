@@ -8,6 +8,9 @@
 <%@ include file="../static/top.jsp"%>
 <link href="static/plugins/summernote/dist/summernote.css" rel="stylesheet" />
   <script src="static/plugins/tinymce/tinymce.min.js"></script>
+    <script src="static/plugins/summernote/dist/summernote.js"></script>
+  
+  
 <style type="text/css">
 th {
 	text-align: center;
@@ -177,6 +180,18 @@ td {
 	<!-- Examples -->
    <script type="text/javascript">
    		$(document).ready(function () {
+   		/*  $('#editData').summernote({  
+   	        height: 400,                  
+   	        minHeight: 300,             
+   	        maxHeight: 500,        
+   	        focus: true,   
+   	        lang:'zh-CN',   
+   	        // 重写图片上传  
+   	    onImageUpload: function(files, editor, $editable) {  
+   	        sendFile(files[0],editor,$editable);  
+   	    }  
+   	  });   */
+   			
 		    if($("#editData").length > 0){
 		        tinymce.init({
 		            selector: "textarea#editData",
@@ -198,7 +213,7 @@ td {
 		                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
 		            ]
 		        });    
-		    }  
+		    }   
 		});
   </script>
 	

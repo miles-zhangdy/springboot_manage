@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.zdy.biz.user.model.User;
+import com.zdy.enums.Status;
 import com.zdy.util.Page;
 
 
@@ -30,7 +31,7 @@ public class UserVO extends Page{
 	/**
 	 * 0女1男 db_column: user_sex
 	 */
-	private Integer userSex;
+	private Status userSex;
 	/**
 	 * userPhone db_column: user_phone
 	 */
@@ -150,11 +151,11 @@ public class UserVO extends Page{
 		return this.userAge;
 	}
 
-	public void setUserSex(Integer value) {
+	public void setUserSex(Status value) {
 		this.userSex = value;
 	}
 
-	public Integer getUserSex() {
+	public Status getUserSex() {
 		return this.userSex;
 	}
 

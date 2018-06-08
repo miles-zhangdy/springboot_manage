@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.zdy.enums.Status;
+
 public class IPUtils implements Serializable{
 
 	 
@@ -247,4 +249,8 @@ public class IPUtils implements Serializable{
         return result;
     }
 
+    public static void main(String[] args) {
+    	System.out.println(Status.valueOf("_1"));
+	}
+    
 }

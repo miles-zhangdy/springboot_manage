@@ -3,6 +3,7 @@ package com.zdy.biz.user.dto;
 import java.util.Date;
 
 import com.zdy.biz.user.model.User;
+import com.zdy.enums.Status;
 
 public class ModifyUserReq {
 
@@ -18,7 +19,7 @@ public class ModifyUserReq {
 	private Long parentId;
 	private String userCompellation;
 	private Integer userAge;
-	private Integer userSex;
+	private Status userSex;
 	private String userPhone;
 	private Integer userFreeze;
 	private Integer userValidate;
@@ -88,11 +89,11 @@ public class ModifyUserReq {
 		return this.userAge;
 	}
 
-	public void setUserSex(Integer userSex) {
+	public void setUserSex(Status userSex) {
 		this.userSex = userSex;
 	}
 
-	public Integer getUserSex() {
+	public Status getUserSex() {
 		return this.userSex;
 	}
 
