@@ -1,5 +1,5 @@
 /**
-* Theme: Ubold Admin
+* Theme: zhangdy Admin
 * Author: Coderthemes
 * Page: opportunities
 */

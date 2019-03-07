@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.zdy.biz.dictionary.model.DictionaryParam;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -36,15 +39,12 @@ public class DictionaryServiceImpl implements IDictionaryService {
 		if (req == null) {
 			return result.error("查询条件不能为空");
 		}
-
+		PageHelper.startPage(req.getPage(), req.getPageSize());
 		List<Dictionary> baseList = dictionaryDao.findList(req.toDictionary());
-		int totalRows = dictionaryDao.count(req.toDictionary());
-		int pageSize = req.getPageSize();
-		int totalPage = totalRows % pageSize > 0 ? totalRows / pageSize + 1 : totalRows / pageSize + 1;
-
+		PageInfo<Dictionary> pageInfo = new PageInfo<>(baseList);
 		List<DictionaryResp> list = new ArrayList<DictionaryResp>();
-		if (!CollectionUtils.isEmpty(baseList)) {
-			for (Dictionary temp : baseList) {
+		if (!CollectionUtils.isEmpty(pageInfo.getList())) {
+			for (Dictionary temp : pageInfo.getList()) {
 				if (temp == null) {
 					continue;
 				}
@@ -55,9 +55,9 @@ public class DictionaryServiceImpl implements IDictionaryService {
 		BaseList<DictionaryResp> dictionaryList = new BaseList<DictionaryResp>();
 		dictionaryList.setList(list);
 		dictionaryList.setCurPage(req.getPage());
-		dictionaryList.setPageSize(pageSize);
-		dictionaryList.setTotalPage(totalPage);
-		dictionaryList.setTotalRows(totalRows);
+		dictionaryList.setPageSize(req.getPageSize());
+		dictionaryList.setTotalPage(pageInfo.getPages());
+		dictionaryList.setTotalRows(pageInfo.getTotal());
 		return result.success(dictionaryList);
 	}
 	@WriteDataSource

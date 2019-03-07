@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -36,15 +39,12 @@ public class DictionaryParamServiceImpl implements IDictionaryParamService {
 		if (req == null) {
 			return result.error("查询条件不能为空");
 		}
-
+		PageHelper.startPage(req.getPage(), req.getPageSize());
 		List<DictionaryParam> baseList = dictionaryParamDao.findList(req.toDictionaryParam());
-		int totalRows = dictionaryParamDao.count(req.toDictionaryParam());
-		int pageSize = req.getPageSize();
-		int totalPage = totalRows % pageSize > 0 ? totalRows / pageSize + 1 : totalRows / pageSize + 1;
-
+		PageInfo<DictionaryParam> pageInfo = new PageInfo<DictionaryParam>(baseList);
 		List<DictionaryParamResp> list = new ArrayList<DictionaryParamResp>();
-		if (!CollectionUtils.isEmpty(baseList)) {
-			for (DictionaryParam temp : baseList) {
+		if (!CollectionUtils.isEmpty(pageInfo.getList())) {
+			for (DictionaryParam temp : pageInfo.getList()) {
 				if (temp == null) {
 					continue;
 				}
@@ -55,9 +55,9 @@ public class DictionaryParamServiceImpl implements IDictionaryParamService {
 		BaseList<DictionaryParamResp> dictionaryParamList = new BaseList<DictionaryParamResp>();
 		dictionaryParamList.setList(list);
 		dictionaryParamList.setCurPage(req.getPage());
-		dictionaryParamList.setPageSize(pageSize);
-		dictionaryParamList.setTotalPage(totalPage);
-		dictionaryParamList.setTotalRows(totalRows);
+		dictionaryParamList.setPageSize(req.getPageSize());
+		dictionaryParamList.setTotalPage(pageInfo.getPages());
+		dictionaryParamList.setTotalRows(pageInfo.getTotal());
 		return result.success(dictionaryParamList);
 	}
 	@WriteDataSource

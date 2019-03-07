@@ -1,6 +1,6 @@
 
 /**
-* Theme: Ubold Admin Template
+* Theme: zhangdy Admin Template
 * Author: Coderthemes
 * Nestable Component
 */

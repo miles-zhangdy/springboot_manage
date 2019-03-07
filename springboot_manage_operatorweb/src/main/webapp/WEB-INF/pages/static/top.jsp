@@ -42,7 +42,8 @@
 <script src="static/js/jqueryValidationExtend.js"></script>
 <script src="static/js/additional-methods.js"></script>
 <script src="static/js/common.js"></script>
-<script src="static/js/jquery.scrollTo.min.js"></script> 
+<script src="static/js/md5.js"></script>
+<script src="static/js/jquery.scrollTo.min.js"></script>
 <script src="static/plugins/peity/jquery.peity.min.js"></script> 
 <script src="static/plugins/sweetalert/dist/sweetalert.min.js"></script>
 

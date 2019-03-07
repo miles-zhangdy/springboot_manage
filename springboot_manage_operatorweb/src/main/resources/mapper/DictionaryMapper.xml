@@ -116,9 +116,7 @@
 				${ order}
 			</if>
 		</if>
-		<if test="beginIndex != null and pageSize != null">
-			limit #{beginIndex} , #{pageSize}
-		</if>
+
 	</select>
 
 	<update id="update">
@@ -146,6 +144,10 @@
 	<delete id="delete">
 		delete from dictionary
 		where id in
+		<foreach item="item" collection="ids" open="(" separator=","
+				 close=")">
+			#{item}
+		</foreach>
 	</delete>
 
 

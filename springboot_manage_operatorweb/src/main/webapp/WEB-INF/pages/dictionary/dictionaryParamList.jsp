@@ -32,7 +32,7 @@
 						<div class="col-sm-12">
 							<h4 class="page-title">dictionaryParam</h4>
 							<ol class="breadcrumb">
-								<li>Ubold</li>
+								<li>zhangdy</li>
 								<li>Tables</li>
 								<li class="active">dictionaryParam</li>
 							</ol>

@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.zdy.util.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +32,6 @@ import com.zdy.common.model.SessionUser;
 import com.zdy.enums.Status;
 import com.zdy.exception.MyException;
 import com.zdy.user.vo.UserVO;
-import com.zdy.util.BaseController;
-import com.zdy.util.BaseList;
-import com.zdy.util.Result;
-import com.zdy.util.ServiceResult;
 
 import net.sf.json.JSONArray;
 
@@ -269,6 +266,7 @@ public class UserController extends BaseController {
 			if(sessionValidateCode == null || !sessionValidateCode.equals(validateCode)){
 				throw new MyException("验证码错误，请重新登录！！");
 			}
+			userVO.setPassword(MD5coding.MD5(userVO.getPassword()));
 			UserReq req = new UserReq(userVO.toUser());
 			req.setUserSex(Status._1);
 			ServiceResult<UserResp> serviceResult = userService.login(req);

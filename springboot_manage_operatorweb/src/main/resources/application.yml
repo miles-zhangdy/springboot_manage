@@ -65,9 +65,9 @@ mysql:
            filters: stat
 
 pagehelper:
-    autoDialect:true
-    reasonable:true
-    supportMethodsArguments:true
-    params:count=countSql
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
     
     

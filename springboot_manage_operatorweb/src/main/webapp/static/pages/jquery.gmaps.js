@@ -1,5 +1,5 @@
 /**
-* Theme: Ubold Admin Template
+* Theme: zhangdy Admin Template
 * Author: Coderthemes
 * Google Maps
 */

@@ -1,5 +1,5 @@
 /**
-* Theme: Ubold Dashboard
+* Theme: zhangdy Dashboard
 * Author: Coderthemes
 * Foo table
 */

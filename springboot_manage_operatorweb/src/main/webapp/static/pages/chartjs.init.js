@@ -1,5 +1,5 @@
 /**
-Template Name: Ubold Dashboard
+Template Name: zhangdy Dashboard
 Author: CoderThemes
 Email: coderthemes@gmail.com
 File: Chartjs

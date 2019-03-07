@@ -55,6 +55,9 @@ function checkLogin(){
 		$("#validateCode").focus();
 		return false;
 	}
+
+    $("#password").val($.md5($("#password").val()));
+
 	login();
 }
 
@@ -75,6 +78,7 @@ function login() {
 				window.location.href="user/toindex";
 			}else{
 				swal(result.msg);
+                $("#password").val("");
 				checkImg();
 			}
 		}
